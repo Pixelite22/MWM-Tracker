@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://1um8y3c80mb7"]
+
+[ext_resource type="Script" uid="uid://b4dvbjut1hgdh" path="res://Scenes and Code/Code/character_icons.gd" id="1_jvyk6"]
+[ext_resource type="Texture2D" uid="uid://ce8e4k0r0cj2c" path="res://Assets/Arts/Ace test img.png" id="1_vsovt"]
+
+[node name="Character Icon" type="Control" unique_id=1757397584]
+custom_minimum_size = Vector2(400, 600)
+layout_mode = 3
+anchor_right = 0.347
+anchor_bottom = 0.772
+offset_right = 0.25598145
+offset_bottom = 99.74399
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jvyk6")
+character = "Misc."
+
+[node name="Icon" type="TextureRect" parent="." unique_id=1957797658]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.8
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_vsovt")
+expand_mode = 1
+
+[node name="Nameplate" type="TextureRect" parent="." unique_id=1416318671]
+layout_mode = 0
+offset_top = 400.0
+offset_right = 400.0
+offset_bottom = 500.0
+expand_mode = 1
+
+[node name="Text Boxes" type="Control" parent="." unique_id=69526583]
+layout_mode = 1
+anchor_top = 0.8
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Songs" type="RichTextLabel" parent="Text Boxes" unique_id=1160629573]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.33200002
+anchor_bottom = 1.0
+offset_right = 0.19999695
+theme_override_font_sizes/normal_font_size = 33
+text = "Songs:
+x"
+horizontal_alignment = 1
+
+[node name="Solos" type="RichTextLabel" parent="Text Boxes" unique_id=2136569425]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.33200002
+anchor_right = 0.665
+anchor_bottom = 1.0
+offset_left = 0.19999695
+theme_override_font_sizes/normal_font_size = 33
+text = "Solos:
+x"
+horizontal_alignment = 1
+
+[node name="Collabs" type="RichTextLabel" parent="Text Boxes" unique_id=1628995533]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.665
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 33
+text = "Collabs:
+x"
+horizontal_alignment = 1
