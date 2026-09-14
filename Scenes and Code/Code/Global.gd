@@ -1,5 +1,6 @@
 extends Node
 
+signal scan_done
 
 #37 Characters + 1 Misc catch all for errored songs and songs belonging to no listed character
 #Key is character name or misc.  Data is [total, solo, collab]
@@ -12,11 +13,11 @@ var char_dict : Dictionary = {
 	"PLAYING WITH POWER!" : [0, 0, 0],
 	"Head Chef Heavy" : [0, 0, 0],
 	"Guzma" : [0, 0, 0],
-	"Heaven Ascension Dio" : [0, 0, 0],
-	"The Ruler of Everything" : [0, 0, 0],
+	"Heaven Ascension DIO" : [0, 0, 0],
+	"Ruler of Everything" : [0, 0, 0],
 	"Snailiens" : [0, 0, 0],
 	"MONSTERMAU5" : [0, 0, 0],
-	"Charles \"All-Star\" Barkley" : [0, 0, 0],
+	"All-Star Barkley" : [0, 0, 0],
 	"Ace D. Copular" : [0, 0, 0],
 	"gSports" : [0, 0, 0],
 	"MTT! Tour" : [0, 0, 0],
@@ -33,7 +34,7 @@ var char_dict : Dictionary = {
 	"Netherrack Nightmares" : [0, 0, 0],
 	"Elliana" : [0, 0, 0],
 	"MAD/EON" : [0, 0, 0],
-	"Lofi Girl" : [0, 0, 0],
+	"lofi girl" : [0, 0, 0],
 	"Gustavo Rocque" : [0, 0, 0],
 	"Club Bangers" : [0, 0, 0],
 	"Scott the Woz" : [0, 0, 0],
@@ -46,15 +47,20 @@ var char_dict : Dictionary = {
 
 var link : String = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=INSERTPLAYLISTID&key=INSERTAPIKEY"
 @export var playlist_id : String = "PLTQBco8DHO4Q"
+#my playlist: "PLTQBco8DHO4Q"
+#Full Playlist: "PLaUNjVsOkdzfbAZzATdDQjYsVaDnae2bk"
+#Neil Cipher: "PLaUNjVsOkdzeT8L9qdmu4Y4r2JpXv8a1G" 
 @export var api_key : String = "AIzaSyAbcDzameSFIC5-HGKg_1HXoM4RaJZ90mA"
 var next_page_key : String
 var curr_page_key : String
 var prev_page_key : String
 var page_token_ext : String = "&pageToken="
 
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	get_window().set_size(DisplayServer.screen_get_size())
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -75,12 +81,14 @@ func set_playlist():
 
 func next_page():
 	#Come back here when we have code to narrow down certain parts of the page... and also after we have actually accessed the page
-	if link.find(page_token_ext) == -1:
-		link += page_token_ext + next_page_key
-		curr_page_key = next_page_key
+	if link.find(page_token_ext) == -1: #if the link doesn't have the text extension needed
+		link += page_token_ext + next_page_key #add it and the next page key
+		curr_page_key = next_page_key #then set the current page to the next page key, showing we have moved
 	else:
-		link.replace(curr_page_key, next_page_key)
-		curr_page_key = next_page_key
+		link = link.replace(curr_page_key, next_page_key) #Other wise, replace the curr_page_key with the next_page_key
+		curr_page_key = next_page_key #and keep curr_page updated
+	
+	return "Ready"
 
 func prev_page():
 	if link.find(page_token_ext) == -1:

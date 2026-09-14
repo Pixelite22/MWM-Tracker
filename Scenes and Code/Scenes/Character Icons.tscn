@@ -78,3 +78,16 @@ theme_override_font_sizes/normal_font_size = 33
 text = "Collabs:
 x"
 horizontal_alignment = 1
+
+[node name="ItemList" type="ItemList" parent="." unique_id=490045166]
+visible = false
+layout_mode = 0
+offset_left = 206.95201
+offset_top = 27.0
+offset_right = 508.90405
+offset_bottom = 72.0
+auto_height = true
+item_count = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="ItemList" to="." method="_on_item_list_mouse_exited"]

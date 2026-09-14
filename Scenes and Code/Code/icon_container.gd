@@ -24,3 +24,8 @@ func create_icons():
 func update_stats():
 	for child in get_children():
 		child.update_stats()
+
+func song_sorter(character, song_name):
+	for child in get_children():
+		if child.character == character:
+			child.songs_included.append(song_name)

@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://switmkn4wqyp"]
+
+[ext_resource type="Script" uid="uid://y1impgdrqw3y" path="res://Scenes and Code/Code/playlist_post_screen.gd" id="1_d7vgh"]
+
+[node name="Playlist post screen" type="Control" unique_id=300126671]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d7vgh")
+
+[node name="Message" type="RichTextLabel" parent="." unique_id=358774756]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 122.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 34
+text = "Please input the link to your playlist below!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Playlist Entry" type="LineEdit" parent="." unique_id=1543251311]
+layout_mode = 0
+offset_left = 146.0
+offset_top = 565.0
+offset_right = 528.0
+offset_bottom = 611.0
+alignment = 1
+
+[node name="Go Button" type="Button" parent="." unique_id=1559704488]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 854.0
+offset_right = 706.0
+offset_bottom = 901.0
+theme_override_font_sizes/font_size = 28
+text = "Press Me to submit the playlist and see the results!"
+
+[connection signal="pressed" from="Go Button" to="." method="_on_button_pressed"]
