@@ -2,6 +2,7 @@ extends Control
 
 @onready var playlist_post_screen: Control = $"Playlist post screen"
 @onready var display_screen: Control = $"Display Screen"
+@onready var saved_playlist_screen: Control = $"Saved Playlist Screen"
 
 
 @onready var http_request: HTTPRequest = $HTTPRequest
@@ -12,14 +13,27 @@ var page
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	playlist_post_screen.playlist_button_pressed.connect(start_the_show)
+	saved_playlist_screen.kick_it.connect(start_the_show)
+	
+	playlist_post_screen.saved_playlist_show.connect(load_em_and_show_em)
 	Global.scan_done.connect(shows_over)
 
 func start_the_show():
-	playlist_post_screen.hide()
+	for child in get_children():
+		if child is not TextureRect and child is not HTTPRequest:
+			child.hide()
 	display_screen.show()
+	print(Global.link)
 	Global.set_playlist() #builds the starting link to the webpage we need to pull the info from
 	
-	request_page() 
+	request_page()
+
+func load_em_and_show_em():
+	for child in get_children():
+		if child is not TextureRect and child is not HTTPRequest:
+			child.hide()
+	saved_playlist_screen.show()
+	saved_playlist_screen.sort_em_out(Global.load_playlists())
 
 var last_link
 func request_page():
@@ -98,7 +112,6 @@ func character_increment(chars_repped, song_name):
 	song_placed = found_misspellings_and_special_cases(chars_repped, song_placed)
 	
 	return song_placed
-
 
 func found_misspellings_and_special_cases(chars_repped, song_placed):
 	#Heaven ascenscion dio instead of heaven ascension dio

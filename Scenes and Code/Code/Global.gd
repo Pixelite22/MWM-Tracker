@@ -1,6 +1,7 @@
 extends Node
 
 signal scan_done
+signal saved_playlist_show
 
 #37 Characters + 1 Misc catch all for errored songs and songs belonging to no listed character
 #Key is character name or misc.  Data is [total, solo, collab]

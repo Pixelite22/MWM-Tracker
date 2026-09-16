@@ -74,3 +74,4 @@ autowrap_mode = 2
 metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="Go Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Saved Playlists Button" to="." method="_on_saved_playlists_button_pressed"]

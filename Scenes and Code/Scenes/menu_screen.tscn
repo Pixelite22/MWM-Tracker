@@ -24,3 +24,21 @@ Please select an option below!"
 fit_content = true
 autowrap_mode = 2
 horizontal_alignment = 1
+
+[node name="Character Display Button" type="Button" parent="." unique_id=731001975]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Character Stats!"
+
+[node name="Stat Menu Button" type="Button" parent="." unique_id=555785521]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Your Stats!"
+
+[node name="Different Playlist Button" type="Button" parent="." unique_id=1252680909]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Enter a different playlist!"

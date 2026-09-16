@@ -1,9 +1,11 @@
 extends Control
 
 signal playlist_button_pressed
+signal saved_playlist_show
 
 @onready var playlist_entry: LineEdit = $"Playlist Entry"
 @onready var go_button: Button = $"Go Button"
+@onready var saved_playlists_button: Button = $"Saved Playlists Button"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -30,3 +32,8 @@ func _on_button_pressed() -> void:
 	print(Global.load_playlists())
 	
 	playlist_button_pressed.emit()
+
+
+func _on_saved_playlists_button_pressed() -> void:
+	saved_playlist_show.emit()
+	

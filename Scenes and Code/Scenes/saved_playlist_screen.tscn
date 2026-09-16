@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://8ptrj5fbtp4w"]
+
+[ext_resource type="Script" uid="uid://dhq3dt7mo5wsi" path="res://Scenes and Code/Code/saved_playlist_screen.gd" id="1_42nd0"]
+
+[node name="Saved Playlist Screen" type="Control" unique_id=232594108]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_42nd0")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=634154689]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=2049938459]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
