@@ -12,6 +12,7 @@ var page
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	playlist_post_screen.playlist_button_pressed.connect(start_the_show)
+	Global.scan_done.connect(shows_over)
 
 func start_the_show():
 	playlist_post_screen.hide()
@@ -53,30 +54,31 @@ func char_catcher():
 			str_start = description.find("Character Represented: ")  #Set the start of the string we want to that phrase
 			str_end = description.find("\n", str_start) #Then the end to the newline
 			song_found = character_increment(description.substr(str_start + 23, str_end - (str_start + 23)), descrips["snippet"]["title"]) #And pull out just the characters, passing them to the character increment function
-			misc_catcher(song_found, str_start, str_end, description)
+			misc_catcher(song_found, str_start, str_end, description, descrips["snippet"]["title"])
 		elif description.contains("Characters Represented: "): #This is a repeat of above but on colab tracks
 			str_start = description.find("Characters Represented: ")
 			str_end = description.find("\n", str_start)
 			song_found = character_increment(description.substr(str_start + 24, str_end - (str_start + 24)), descrips["snippet"]["title"])
-			misc_catcher(song_found, str_start, str_end, description)
+			misc_catcher(song_found, str_start, str_end, description, descrips["snippet"]["title"])
 		elif description.contains("Character: "):
 			str_start = description.find("Character: ")
 			str_end = description.find("\n", str_start)
 			song_found = character_increment(description.substr(str_start + 11, str_end - (str_start + 11)), descrips["snippet"]["title"])
-			misc_catcher(song_found, str_start, str_end, description)
+			misc_catcher(song_found, str_start, str_end, description, descrips["snippet"]["title"])
 		elif description.contains("Characters: "):
 			str_start = description.find("Characters: ")
 			str_end = description.find("\n", str_start)
 			song_found = character_increment(description.substr(str_start + 12, str_end - (str_start + 12)), descrips["snippet"]["title"])
-			misc_catcher(song_found, str_start, str_end, description)
+			misc_catcher(song_found, str_start, str_end, description, descrips["snippet"]["title"])
 
-func misc_catcher(song_found, str_start, str_end, description):
+func misc_catcher(song_found, str_start, str_end, description, song_name):
 	if not song_found:
 		Global.char_dict["Misc."][0] += 1
 		if description.substr(str_start, str_end - str_start).contains(",") or description.substr(str_start, str_end - str_start).contains("All"):
 			Global.char_dict["Misc."][2] += 1
 		else:
 			Global.char_dict["Misc."][1] += 1
+		icon_container.song_sorter("Misc.", song_name)
 
 func character_increment(chars_repped, song_name):
 	print("Characters repped are: " + chars_repped)
@@ -87,7 +89,7 @@ func character_increment(chars_repped, song_name):
 			print(character + " found!")
 			song_placed = true
 			Global.char_dict[character][0] += 1 #increment that characters total songs
-			if not chars_repped.contains(","): #and if this string doesn't contain the , character, signalling there is no other rep
+			if not chars_repped.contains(",") or not chars_repped.contains("-"): #and if this string doesn't contain the , character, signalling there is no other rep
 				Global.char_dict[character][1] += 1 #increment the solo songs
 			else: #otherwise
 				Global.char_dict[character][2] += 1 #increment the collabs
@@ -140,4 +142,8 @@ func next_page():
 	#	Global.curr_page_key = Global.next_page_key
 		await Global.next_page() #and call the global version of this function
 		request_page() #then loop back into request page
-			 
+
+func shows_over():
+	$"Display Screen/End Message".show()
+	await get_tree().create_timer(1.0).timeout
+	$"Display Screen/End Message".hide()

@@ -4,43 +4,51 @@
 [ext_resource type="Texture2D" uid="uid://ce8e4k0r0cj2c" path="res://Assets/Arts/Ace test img.png" id="1_vsovt"]
 
 [node name="Character Icon" type="Control" unique_id=1757397584]
-custom_minimum_size = Vector2(400, 600)
+custom_minimum_size = Vector2(600, 850)
 layout_mode = 3
-anchor_right = 0.347
-anchor_bottom = 0.772
-offset_right = 0.25598145
-offset_bottom = 99.74399
+anchor_right = 0.83300006
+anchor_bottom = 0.66
+offset_right = 0.2399292
+offset_bottom = 5.199951
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_jvyk6")
 character = "Misc."
+metadata/_edit_use_anchors_ = true
 
 [node name="Icon" type="TextureRect" parent="." unique_id=1957797658]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
-anchor_bottom = 0.8
-offset_bottom = -80.0
+anchor_bottom = 0.65900004
+offset_bottom = -0.15002441
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_vsovt")
 expand_mode = 1
 
 [node name="Nameplate" type="TextureRect" parent="." unique_id=1416318671]
-layout_mode = 0
-offset_top = 400.0
-offset_right = 400.0
-offset_bottom = 500.0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.65900004
+anchor_right = 1.0
+anchor_bottom = 0.83500004
+offset_top = -0.15002441
+offset_bottom = 0.24993896
 expand_mode = 1
 
 [node name="Text Boxes" type="Control" parent="." unique_id=69526583]
 layout_mode = 1
-anchor_top = 0.8
+anchor_top = 0.83500004
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 20.0
+anchor_bottom = 1.0120001
+offset_top = 0.24993896
+offset_bottom = -0.20007324
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="Songs" type="RichTextLabel" parent="Text Boxes" unique_id=1160629573]
 layout_mode = 1
@@ -48,7 +56,7 @@ anchors_preset = -1
 anchor_right = 0.33200002
 anchor_bottom = 1.0
 offset_right = 0.19999695
-theme_override_font_sizes/normal_font_size = 33
+theme_override_font_sizes/normal_font_size = 50
 text = "Songs:
 x"
 horizontal_alignment = 1
@@ -60,7 +68,7 @@ anchor_left = 0.33200002
 anchor_right = 0.665
 anchor_bottom = 1.0
 offset_left = 0.19999695
-theme_override_font_sizes/normal_font_size = 33
+theme_override_font_sizes/normal_font_size = 50
 text = "Solos:
 x"
 horizontal_alignment = 1
@@ -74,18 +82,21 @@ anchor_bottom = 1.0
 offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 33
+theme_override_font_sizes/normal_font_size = 50
 text = "Collabs:
 x"
 horizontal_alignment = 1
 
 [node name="ItemList" type="ItemList" parent="." unique_id=490045166]
 visible = false
+z_index = 1
 layout_mode = 0
 offset_left = 206.95201
 offset_top = 27.0
 offset_right = 508.90405
 offset_bottom = 72.0
+theme_override_font_sizes/font_size = 32
+auto_width = true
 auto_height = true
 item_count = 1
 

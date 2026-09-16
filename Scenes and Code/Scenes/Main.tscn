@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://fy7du6qm2hst" path="res://Assets/Arts/Mashup week proto background.png" id="2_duvmg"]
 [ext_resource type="Script" uid="uid://deb8a5l7mtanf" path="res://Scenes and Code/Code/icon_container.gd" id="2_mvrhl"]
 [ext_resource type="PackedScene" uid="uid://switmkn4wqyp" path="res://Scenes and Code/Scenes/playlist_post_screen.tscn" id="4_bdkiy"]
+[ext_resource type="PackedScene" uid="uid://gigcplmt0upt" path="res://Scenes and Code/Scenes/menu_screen.tscn" id="5_7njfj"]
 
 [node name="Main" type="Control" unique_id=1636052630]
 layout_mode = 3
@@ -42,10 +43,29 @@ grow_vertical = 2
 
 [node name="Icon Container" type="VBoxContainer" parent="Display Screen/ScrollContainer" unique_id=1979209404]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 15
 alignment = 1
 script = ExtResource("2_mvrhl")
+
+[node name="End Message" type="Label" parent="Display Screen" unique_id=1611216250]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.799
+anchor_right = 1.0
+anchor_bottom = 0.018000001
+offset_left = -0.2800293
+offset_bottom = -0.040000916
+grow_horizontal = 0
+text = "Playlist fully loaded!"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="." unique_id=1862954798]
 
 [node name="Playlist post screen" parent="." unique_id=300126671 instance=ExtResource("4_bdkiy")]
+layout_mode = 1
+
+[node name="Menu Screen" parent="." unique_id=2111732419 instance=ExtResource("5_7njfj")]
+visible = false
 layout_mode = 1

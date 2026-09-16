@@ -56,7 +56,7 @@ var curr_page_key : String
 var prev_page_key : String
 var page_token_ext : String = "&pageToken="
 
-
+const save_file := "user://playlist... list.json"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -99,3 +99,23 @@ func prev_page():
 	next_page_key = curr_page_key
 	curr_page_key = prev_page_key
 	#prev_page_key = however we pull that from the site
+
+func save_playlists(playlist):
+	var new_playlist = true
+	var file = FileAccess.open(save_file, FileAccess.READ)
+	if FileAccess.file_exists(save_file):
+		if file.get_as_text().contains(playlist):
+			new_playlist = false
+			return
+			file.close()
+	
+	file = FileAccess.open(save_file, FileAccess.WRITE)
+	if new_playlist:
+		file.store_string(playlist)
+	file.close()
+
+func load_playlists():
+	var file = FileAccess.open(save_file, FileAccess.READ)
+	var content = file.get_as_text()
+	file.close()
+	return content

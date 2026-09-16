@@ -80,7 +80,7 @@ func _process(delta: float) -> void:
 
 
 func _on_mouse_entered() -> void:
-	item_list.position = get_global_mouse_position()
+	item_list.position = get_local_mouse_position()
 	item_list.show()
 
 func _on_item_list_mouse_exited() -> void:
