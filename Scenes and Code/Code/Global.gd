@@ -40,10 +40,14 @@ var char_dict : Dictionary = {
 	"Club Bangers" : [0, 0, 0],
 	"Scott the Woz" : [0, 0, 0],
 	"Susie Haltmann" : [0, 0, 0],
-	"Dexter's Dad" : [0, 0, 0],
 	"Discoholic" : [0, 0, 0],
 	"Cici" : [0, 0, 0],
+	"Dexter's Dad" : [0, 0, 0],
 	"Misc." : [0, 0, 0]
+}
+
+var playlist_dict = {
+	#Playlist : Desired Name
 }
 
 var link : String = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=INSERTPLAYLISTID&key=INSERTAPIKEY"
@@ -92,31 +96,56 @@ func next_page():
 	return "Ready"
 
 func prev_page():
-	if link.find(page_token_ext) == -1:
-		link += page_token_ext # + prev_page_key
-	else:
-		link.replace(curr_page_key, prev_page_key)
+	if link.find(page_token_ext) == -1: #if there is a page token extension
+		link += page_token_ext # + prev_page_key #add it to the link
+	else: #otherwise
+		link.replace(curr_page_key, prev_page_key) #replace the current_page_key with the previous one
 	
+	#set keys correctly
 	next_page_key = curr_page_key
 	curr_page_key = prev_page_key
 	#prev_page_key = however we pull that from the site
 
-func save_playlists(playlist):
-	var new_playlist = true
-	var file = FileAccess.open(save_file, FileAccess.READ)
-	if FileAccess.file_exists(save_file):
-		if file.get_as_text().contains(playlist):
-			new_playlist = false
-			return
-			file.close()
+
+#NEED TO CHANGE THIS TO HANDLE SAVING A DICTIONARY INSTEAD OF TEXT
+func save_playlists(playlist, name = ""):
+	print("Save_Playlist reached in GLobal")
+	#load the playlist into the general dict
+	load_playlists()
 	
-	file = FileAccess.open(save_file, FileAccess.WRITE)
-	if new_playlist:
-		file.store_string(playlist)
+	#Determine if it is a new or already saved playlist
+	var new_playlist : bool
+	if playlist in playlist_dict.keys():
+		new_playlist = false
+		if name != "":
+			playlist_dict[playlist] = name
+	else:
+		new_playlist = true
+		playlist_dict.get_or_add(playlist, name)
+	
+	var file = FileAccess.open(save_file, FileAccess.WRITE)
+	for list in playlist_dict:
+		file.store_string(playlist + " Named: " + name + "|")
+	
 	file.close()
 
+#Load file data into playlist Dictionary
 func load_playlists():
-	var file = FileAccess.open(save_file, FileAccess.READ)
-	var content = file.get_as_text()
-	file.close()
-	return content
+	var file = FileAccess.open(save_file, FileAccess.READ) #set file to an opened save_file
+	var content = file.get_as_text() #Get the file content as text
+	var line
+	while not file.eof_reached():
+		line = file.get_line()
+		print("Line: " + line)
+		if not line.begins_with("#"):
+			var playlist_link_start = line.find("http") #find the playlist in the file
+			var playlist_name_start = line.find(" Named: ") + 8
+			var playlist_line_ends = line.find("|") #find the end of the playlist in the file
+			print("Start is at: " + str(playlist_link_start) + 
+			" Name split at: " + str(playlist_name_start) + 
+			" End at: " + str(playlist_line_ends))
+			
+			playlist_dict.get_or_add(line.strip_edges().substr(playlist_link_start, playlist_name_start - 8), line.strip_edges().substr(playlist_name_start, playlist_line_ends))
+	
+	file.close() #close the file to prevent leak
+	return content #return the text if the value is needed

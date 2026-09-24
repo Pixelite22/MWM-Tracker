@@ -19,21 +19,21 @@ func _ready() -> void:
 	Global.scan_done.connect(shows_over)
 
 func start_the_show():
-	for child in get_children():
-		if child is not TextureRect and child is not HTTPRequest:
-			child.hide()
-	display_screen.show()
-	print(Global.link)
+	for child in get_children(): #for child nodes
+		if child is not TextureRect and child is not HTTPRequest: #if the node isn't the background or the internet grabber
+			child.hide() #hide the child
+	display_screen.show() #show the display screen
+	print(Global.link) #print the link for debug
 	Global.set_playlist() #builds the starting link to the webpage we need to pull the info from
 	
-	request_page()
+	request_page() #Call the request page func
 
 func load_em_and_show_em():
-	for child in get_children():
-		if child is not TextureRect and child is not HTTPRequest:
-			child.hide()
-	saved_playlist_screen.show()
-	saved_playlist_screen.sort_em_out(Global.load_playlists())
+	for child in get_children(): #for all child nodes
+		if child is not TextureRect and child is not HTTPRequest: #if node isnt background or internet grabber
+			child.hide() #hide it
+	saved_playlist_screen.show() #show the saved playlist
+	saved_playlist_screen.sort_em_out(Global.load_playlists()) #start the sorting function on the loaded playlist 
 
 var last_link
 func request_page():
@@ -103,7 +103,7 @@ func character_increment(chars_repped, song_name):
 			print(character + " found!")
 			song_placed = true
 			Global.char_dict[character][0] += 1 #increment that characters total songs
-			if not chars_repped.contains(",") or not chars_repped.contains("-"): #and if this string doesn't contain the , character, signalling there is no other rep
+			if not chars_repped.contains(",") and not chars_repped.contains(" - "): #and if this string doesn't contain the , character, signalling there is no other rep
 				Global.char_dict[character][1] += 1 #increment the solo songs
 			else: #otherwise
 				Global.char_dict[character][2] += 1 #increment the collabs
