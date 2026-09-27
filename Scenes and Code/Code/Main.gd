@@ -10,6 +10,8 @@ extends Control
 
 var page
 
+var screen_tracking = [] #current, prev
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	playlist_post_screen.playlist_button_pressed.connect(start_the_show)
@@ -23,6 +25,7 @@ func start_the_show():
 		if child is not TextureRect and child is not HTTPRequest: #if the node isn't the background or the internet grabber
 			child.hide() #hide the child
 	display_screen.show() #show the display screen
+	screen_tracking = [display_screen, playlist_post_screen]
 	print(Global.link) #print the link for debug
 	Global.set_playlist() #builds the starting link to the webpage we need to pull the info from
 	
@@ -33,6 +36,7 @@ func load_em_and_show_em():
 		if child is not TextureRect and child is not HTTPRequest: #if node isnt background or internet grabber
 			child.hide() #hide it
 	saved_playlist_screen.show() #show the saved playlist
+	screen_tracking = [saved_playlist_screen, playlist_post_screen]
 	saved_playlist_screen.sort_em_out(Global.load_playlists()) #start the sorting function on the loaded playlist 
 
 var last_link
@@ -160,3 +164,11 @@ func shows_over():
 	$"Display Screen/End Message".show()
 	await get_tree().create_timer(1.0).timeout
 	$"Display Screen/End Message".hide()
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		screen_tracking[1].show()
+		screen_tracking[0].hide()
+		var temp = screen_tracking[1]
+		screen_tracking[1] = screen_tracking[0]
+		screen_tracking[0] = screen_tracking[1]

@@ -18,17 +18,16 @@ var button_edited
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	#connect relevant signals
 	Global.saved_playlist_show.connect(load_em_up)
 	held_timer.timeout.connect(name_changer)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-#	if Input.is_action_just_pressed("ui_accept") or save_button.pressed:
-		#action detected
 	pass
-					
 
+#Simply to load the playlist and send it to the function that sorts out the relevant information
 func load_em_up():
 	print("Load em up reached")
 	var file_content = Global.load_playlists()
@@ -37,12 +36,14 @@ func load_em_up():
 	
 	#release_da_buttons()
 
+#Sorts out the collected info from the playlist
 func sort_em_out(playlists : String):
 	print("SEM reached")
 	print(playlists.strip_escapes())
-	var split_point = playlists.strip_escapes().find("http", 4)
-	var start_of_name_requests = playlists.strip_escapes().find(" Named: ") + 8
-	Global.playlist_dict.get_or_add(playlists.strip_escapes().substr(0, start_of_name_requests - 8), playlists.strip_escapes().substr(start_of_name_requests, start_of_name_requests - split_point))
+	var split_point = playlists.find("http", 4) #Find the start of the link, on the off-chance it isn't at the very beginning
+	var start_of_name_requests = playlists.find(" Named: ") + 8 #find the start of the Playlist name part
+	var end_char = playlists.find("|")
+	Global.playlist_dict.set(playlists.substr(0, start_of_name_requests - 8), playlists.substr(start_of_name_requests, end_char - start_of_name_requests).rstrip("|")) 
 	#playlist_list.append(playlists.strip_escapes().substr(0, split_point))
 	print(Global.playlist_dict)
 	if playlists.substr(split_point) != "":
