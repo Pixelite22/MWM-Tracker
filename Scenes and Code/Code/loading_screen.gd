@@ -18,9 +18,9 @@ enum load_states {FIGHT, RUN, DANCE, DANCEN}
 	"Dance Rick2" : [Vector2(0.25, 0.25), 3.0],
 	"Fight Bill" : [Vector2(0.25, 0.25), 2.0],
 	"Fight Ruler" : [Vector2(0.25, 0.25), 2.0],
-	"Run Cici" : [Vector2(0.1, 0.1), 20.0],
-	"Run Farquad" : [Vector2(0.25, 0.25), 5.0],
-	"Run Kyoko" : [Vector2(0.25, 0.25), 5.0],
+	"Run Cici" : [Vector2(0.5, 0.5), 20.0],
+	"Run Farquad" : [Vector2(0.5, 0.5), 5.0],
+	"Run Kyoko" : [Vector2(1.0, 1.0), 5.0],
 	"Run Misako" : [Vector2(0.25, 0.25), 5.0]
 }
 
@@ -36,6 +36,10 @@ func _process(delta: float) -> void:
 	pass
 
 func load_screen():
+	for child in get_children():
+		if not child is Label:
+			child.queue_free()
+	
 	match curr_state:
 		load_states.DANCE:
 			var i = 0
@@ -79,9 +83,9 @@ func load_screen():
 			var sprite4 = create_sprite("Run Misako")
 			
 			sprite1.position = Vector2(352, 298)
-			sprite2.position = Vector2(576, 1122)
-			sprite3.position = Vector2(368, 1122)
-			sprite4.position = Vector2(152, 1122)
+			sprite2.position = Vector2(608, 1122)
+			sprite3.position = Vector2(128, 1122)
+			sprite4.position = Vector2(288, 1122)
 			
 			sprite1.play()
 			sprite2.play()
