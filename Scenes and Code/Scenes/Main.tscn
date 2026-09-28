@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://switmkn4wqyp" path="res://Scenes and Code/Scenes/playlist_post_screen.tscn" id="4_bdkiy"]
 [ext_resource type="PackedScene" uid="uid://gigcplmt0upt" path="res://Scenes and Code/Scenes/menu_screen.tscn" id="5_7njfj"]
 [ext_resource type="PackedScene" uid="uid://8ptrj5fbtp4w" path="res://Scenes and Code/Scenes/saved_playlist_screen.tscn" id="6_snpgs"]
+[ext_resource type="PackedScene" uid="uid://duywr8ksvdc26" path="res://Scenes and Code/Scenes/loading_screen.tscn" id="7_2jpta"]
 
 [node name="Main" type="Control" unique_id=1636052630]
 layout_mode = 3
@@ -72,5 +73,9 @@ visible = false
 layout_mode = 1
 
 [node name="Saved Playlist Screen" parent="." unique_id=232594108 instance=ExtResource("6_snpgs")]
+visible = false
+layout_mode = 1
+
+[node name="Loading Screen" parent="." unique_id=2100234362 instance=ExtResource("7_2jpta")]
 visible = false
 layout_mode = 1

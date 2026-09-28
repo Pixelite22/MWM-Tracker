@@ -3,6 +3,7 @@ extends Control
 @onready var playlist_post_screen: Control = $"Playlist post screen"
 @onready var display_screen: Control = $"Display Screen"
 @onready var saved_playlist_screen: Control = $"Saved Playlist Screen"
+@onready var loading_screen: Control = $"Loading Screen"
 
 
 @onready var http_request: HTTPRequest = $HTTPRequest
@@ -24,9 +25,11 @@ func start_the_show():
 	for child in get_children(): #for child nodes
 		if child is not TextureRect and child is not HTTPRequest: #if the node isn't the background or the internet grabber
 			child.hide() #hide the child
-	display_screen.show() #show the display screen
+	loading_screen.show() #show the display screen
+	loading_screen.curr_state = loading_screen.load_states.values().pick_random()
+	loading_screen.load_screen()
 	screen_tracking = [display_screen, playlist_post_screen]
-	print(Global.link) #print the link for debug
+	print("Link for debug: " + Global.link) #print the link for debug
 	Global.set_playlist() #builds the starting link to the webpage we need to pull the info from
 	
 	request_page() #Call the request page func
@@ -161,12 +164,17 @@ func next_page():
 		request_page() #then loop back into request page
 
 func shows_over():
-	$"Display Screen/End Message".show()
-	await get_tree().create_timer(1.0).timeout
-	$"Display Screen/End Message".hide()
+	#$"Display Screen/End Message".show()
+	#await get_tree().create_timer(1.0).timeout
+	#$"Display Screen/End Message".hide()
+	loading_screen.hide()
+	display_screen.show()
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		if screen_tracking[0] == display_screen:
+			for char in Global.char_dict:
+				Global.char_dict[char] = [0, 0, 0]
 		screen_tracking[1].show()
 		screen_tracking[0].hide()
 		var temp = screen_tracking[1]
