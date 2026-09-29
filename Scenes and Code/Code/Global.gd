@@ -51,6 +51,7 @@ var playlist_dict = {
 }
 
 var link : String = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=INSERTPLAYLISTID&key=INSERTAPIKEY"
+var link_default : String = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=INSERTPLAYLISTID&key=INSERTAPIKEY"
 @export var playlist_id : String = "PLTQBco8DHO4Q"
 #my playlist: "PLTQBco8DHO4Q"
 #Full Playlist: "PLaUNjVsOkdzfbAZzATdDQjYsVaDnae2bk"
@@ -79,6 +80,8 @@ func roll_call():
 		i += 1
 
 func set_playlist():
+	if link != link_default:
+		link = link_default
 	link = link.replace("INSERTPLAYLISTID", playlist_id)
 	link = link.replace("INSERTAPIKEY", api_key)
 	#print("Link to the first page of the api website is: " + link)

@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://d0k8vq48wc40f"]
+
+[ext_resource type="Script" uid="uid://ul1cs4foyxpf" path="res://Scenes and Code/Code/loading_screen.gd" id="1_op33f"]
+[ext_resource type="SpriteFrames" uid="uid://cushyt8s4a22x" path="res://Assets/Sprite Frames/Loading Sprites.tres" id="2_38kj0"]
+
+[node name="Loading Screen" type="Control" unique_id=2100234362]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_op33f")
+curr_state = 2
+
+[node name="Message" type="Label" parent="." unique_id=637963955]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 56
+text = "Loading your playlist"
+horizontal_alignment = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=874824761]
+position = Vector2(512, 970)
+sprite_frames = ExtResource("2_38kj0")
+animation = &"Dance Anime"
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=1908317374]
+position = Vector2(168, 970)
+sprite_frames = ExtResource("2_38kj0")
+animation = &"Dance Anime"
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="." unique_id=593430968]
+position = Vector2(512, 306)
+sprite_frames = ExtResource("2_38kj0")
+animation = &"Dance Anime"
+
+[node name="AnimatedSprite2D4" type="AnimatedSprite2D" parent="." unique_id=1924240292]
+position = Vector2(168, 306)
+sprite_frames = ExtResource("2_38kj0")
+animation = &"Dance Anime"

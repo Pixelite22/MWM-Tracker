@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://switmkn4wqyp" path="res://Scenes and Code/Scenes/playlist_post_screen.tscn" id="4_bdkiy"]
 [ext_resource type="PackedScene" uid="uid://gigcplmt0upt" path="res://Scenes and Code/Scenes/menu_screen.tscn" id="5_7njfj"]
 [ext_resource type="PackedScene" uid="uid://8ptrj5fbtp4w" path="res://Scenes and Code/Scenes/saved_playlist_screen.tscn" id="6_snpgs"]
+[ext_resource type="PackedScene" uid="uid://d0k8vq48wc40f" path="res://Scenes and Code/Scenes/loading_screen.tscn" id="7_2jpta"]
+[ext_resource type="PackedScene" uid="uid://csil7tsqfwg6k" path="res://Scenes and Code/Scenes/stats_screen.tscn" id="8_7y8cd"]
 
 [node name="Main" type="Control" unique_id=1636052630]
 layout_mode = 3
@@ -50,6 +52,11 @@ theme_override_constants/separation = 15
 alignment = 1
 script = ExtResource("2_mvrhl")
 
+[node name="Stats Screen Button" type="Button" parent="Display Screen/ScrollContainer/Icon Container" unique_id=833861117]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "Stats Screen!!!"
+
 [node name="End Message" type="Label" parent="Display Screen" unique_id=1611216250]
 visible = false
 layout_mode = 1
@@ -74,3 +81,14 @@ layout_mode = 1
 [node name="Saved Playlist Screen" parent="." unique_id=232594108 instance=ExtResource("6_snpgs")]
 visible = false
 layout_mode = 1
+
+[node name="Loading Screen" parent="." unique_id=2100234362 instance=ExtResource("7_2jpta")]
+visible = false
+layout_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Stats Screen" parent="." unique_id=138303260 instance=ExtResource("8_7y8cd")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="Display Screen/ScrollContainer/Icon Container/Stats Screen Button" to="." method="backstage_pass"]

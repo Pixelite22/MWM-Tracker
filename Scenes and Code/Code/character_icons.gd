@@ -54,11 +54,13 @@ var songs_included = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	icon_setup()
+	Global.scan_done.connect(song_list)
+
+func icon_setup():
 	icon.texture = load(char_img_dict[character][0]) #load the image associated with the character into the icon node
 	if char_img_dict[character][1] != null: #If there is a name plate
 		nameplate.texture = load(char_img_dict[character][1]) #load the nameplate as well
-	
-	Global.scan_done.connect(song_list)
 
 #This is called every time the song total is updated
 func update_stats():

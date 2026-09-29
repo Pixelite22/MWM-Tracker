@@ -43,9 +43,11 @@ func sort_em_out(playlists : String):
 	var split_point = playlists.find("http", 4) #Find the start of the link, on the off-chance it isn't at the very beginning
 	var start_of_name_requests = playlists.find(" Named: ") + 8 #find the start of the Playlist name part
 	var end_char = playlists.find("|")
-	Global.playlist_dict.set(playlists.substr(0, start_of_name_requests - 8), playlists.substr(start_of_name_requests, end_char - start_of_name_requests).rstrip("|")) 
-	#playlist_list.append(playlists.strip_escapes().substr(0, split_point))
-	print(Global.playlist_dict)
+	var playlink = playlists.substr(0, start_of_name_requests - 8)
+	if not Global.playlist_dict.has(playlink):
+		Global.playlist_dict.set(playlink, playlists.substr(start_of_name_requests, end_char - start_of_name_requests).rstrip("|")) 
+		#playlist_list.append(playlists.strip_escapes().substr(0, split_point))
+		print(Global.playlist_dict)
 	if playlists.substr(split_point) != "":
 		print(playlists.substr(split_point))
 		sort_em_out(playlists.substr(split_point))
