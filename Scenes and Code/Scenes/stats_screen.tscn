@@ -19,6 +19,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 0
+follow_focus = true
+scroll_vertical = 100
 metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=1617241175]
@@ -30,7 +33,7 @@ alignment = 1
 [node name="Favorite Character Label" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=683854089]
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_font_sizes/font_size = 60
+theme_override_font_sizes/font_size = 77
 text = "Favorite Character!"
 horizontal_alignment = 1
 
@@ -41,10 +44,51 @@ character = "Ace D. Copular"
 [node name="Runner Up Label" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=260160381]
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_font_sizes/font_size = 60
+theme_override_font_sizes/font_size = 77
 text = "Runner Up!"
 horizontal_alignment = 1
 
 [node name="Runner Up Character" parent="ScrollContainer/VBoxContainer" unique_id=2094181990 instance=ExtResource("1_t37ye")]
 layout_mode = 2
 character = "Ace D. Copular"
+
+[node name="Solo Label" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=2083326126]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 77
+text = "Favorite Solo Act!"
+horizontal_alignment = 1
+
+[node name="Solo Character" parent="ScrollContainer/VBoxContainer" unique_id=932497093 instance=ExtResource("1_t37ye")]
+layout_mode = 2
+character = "Ace D. Copular"
+
+[node name="Colab Label" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1039801759]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 77
+text = "Favorite Collaber!"
+horizontal_alignment = 1
+
+[node name="Colab Character" parent="ScrollContainer/VBoxContainer" unique_id=1411902221 instance=ExtResource("1_t37ye")]
+layout_mode = 2
+character = "Ace D. Copular"
+
+[node name="Least Favorite Label" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=356772807]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 77
+text = "Least Favorite..."
+horizontal_alignment = 1
+
+[node name="Least Favorite Character" parent="ScrollContainer/VBoxContainer" unique_id=1109793884 instance=ExtResource("1_t37ye")]
+layout_mode = 2
+character = "Ace D. Copular"
+
+[node name="Favorite Composers" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=589039922]
+layout_mode = 2
+theme_override_font_sizes/font_size = 67
+text = "Favorite Composers:"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2

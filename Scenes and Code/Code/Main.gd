@@ -61,11 +61,12 @@ func _process(delta: float) -> void:
 func page_read(result, response_code, headers, body):
 	page = JSON.parse_string(body.get_string_from_utf8()) #Set the page to a JSON made of all text on the page
 	
-	char_catcher() #Call this to catch and record the characters names correctly
+	song_catcher() #Call this to catch and record song info
+	print(str(Global.composer_dict))
 	icon_container.update_stats() #Have the stats actually update on screnn
 	next_page() #move to the next webpage
 
-func char_catcher():
+func song_catcher():
 	#The way tthe api page is structured, you need to narrow down where the description is stroed for each video
 	for descrips in page["items"]: #This loop runs over every song on the api page (about 5)
 		var description = descrips["snippet"]["description"] #This variable targets the description text only
@@ -93,6 +94,21 @@ func char_catcher():
 			str_end = description.find("\n", str_start)
 			song_found = character_increment(description.substr(str_start + 12, str_end - (str_start + 12)), descrips["snippet"]["title"])
 			misc_catcher(song_found, str_start, str_end, description, descrips["snippet"]["title"])
+		
+		var musician_found
+		if description.contains("Musician: "):
+			str_start = description.find("Musician: ")
+			str_end = description.find("\n", str_start)
+			musician_credit(description.substr(str_start + 10, str_end - (str_start + 10)), descrips["snippet"]["title"])
+
+func musician_credit(musician_name, song_name):
+	if musician_name in Global.composer_dict.keys():
+		Global.composer_dict[musician_name].append(song_name)
+		Global.composer_times[musician_name] += 1
+	else:
+		Global.composer_dict.get_or_add(musician_name, [song_name])
+		Global.composer_times[musician_name] = 1
+
 
 func misc_catcher(song_found, str_start, str_end, description, song_name):
 	if not song_found:
@@ -171,7 +187,8 @@ func shows_over():
 	#$"Display Screen/End Message".hide()
 	loading_screen.hide()
 	display_screen.show()
-	stats_screen.fav_char_finder()
+	stats_screen.char_finder()
+	stats_screen.fav_comp()
 
 func backstage_pass():
 	display_screen.hide()

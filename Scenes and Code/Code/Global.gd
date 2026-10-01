@@ -50,6 +50,14 @@ var playlist_dict = {
 	#Playlist : Desired Name
 }
 
+var composer_dict = {
+	#Musician : [Songs Worked on]
+}
+
+var composer_times = {
+	#musician : amount of songs
+}
+
 var link : String = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=INSERTPLAYLISTID&key=INSERTAPIKEY"
 var link_default : String = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=INSERTPLAYLISTID&key=INSERTAPIKEY"
 @export var playlist_id : String = "PLTQBco8DHO4Q"
@@ -148,7 +156,7 @@ func load_playlists():
 			" Name split at: " + str(playlist_name_start) + 
 			" End at: " + str(playlist_line_ends))
 			
-			playlist_dict.get_or_add(line.strip_edges().substr(playlist_link_start, playlist_name_start - 8), line.strip_edges().substr(playlist_name_start, playlist_line_ends))
+			playlist_dict.get_or_add(line.strip_edges().substr(playlist_link_start, playlist_name_start - 8), line.strip_edges().substr(playlist_name_start, playlist_line_ends - 1).trim_suffix("|"))
 	
 	file.close() #close the file to prevent leak
 	return content #return the text if the value is needed

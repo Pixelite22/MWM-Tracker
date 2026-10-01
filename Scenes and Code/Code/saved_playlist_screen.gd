@@ -45,7 +45,7 @@ func sort_em_out(playlists : String):
 	var end_char = playlists.find("|")
 	var playlink = playlists.substr(0, start_of_name_requests - 8)
 	if not Global.playlist_dict.has(playlink):
-		Global.playlist_dict.set(playlink, playlists.substr(start_of_name_requests, end_char - start_of_name_requests).rstrip("|")) 
+		Global.playlist_dict.set(playlink, playlists.substr(start_of_name_requests, end_char - 1).trim_suffix("|")) 
 		#playlist_list.append(playlists.strip_escapes().substr(0, split_point))
 		print(Global.playlist_dict)
 	if playlists.substr(split_point) != "":

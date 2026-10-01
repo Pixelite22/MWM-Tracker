@@ -27,7 +27,7 @@ offset_bottom = -0.15002441
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_vsovt")
-expand_mode = 5
+expand_mode = 4
 stretch_mode = 5
 
 [node name="Nameplate" type="TextureRect" parent="." unique_id=1416318671]
