@@ -29,7 +29,7 @@ func _process(delta: float) -> void:
 
 #Simply to load the playlist and send it to the function that sorts out the relevant information
 func load_em_up():
-	print("Load em up reached")
+	#print("Load em up reached")
 	var file_content = Global.load_playlists()
 	
 	sort_em_out(file_content)
@@ -38,8 +38,8 @@ func load_em_up():
 
 #Sorts out the collected info from the playlist
 func sort_em_out(playlists : String):
-	print("SEM reached")
-	print(playlists.strip_escapes())
+	#print("SEM reached")
+	#print(playlists.strip_escapes())
 	var split_point = playlists.find("http", 4) #Find the start of the link, on the off-chance it isn't at the very beginning
 	var start_of_name_requests = playlists.find(" Named: ") + 8 #find the start of the Playlist name part
 	var end_char = playlists.find("|")
@@ -47,19 +47,19 @@ func sort_em_out(playlists : String):
 	if not Global.playlist_dict.has(playlink):
 		Global.playlist_dict.set(playlink, playlists.substr(start_of_name_requests, end_char - 1).trim_suffix("|")) 
 		#playlist_list.append(playlists.strip_escapes().substr(0, split_point))
-		print(Global.playlist_dict)
+		#print(Global.playlist_dict)
 	if playlists.substr(split_point) != "":
-		print(playlists.substr(split_point))
+		#print(playlists.substr(split_point))
 		sort_em_out(playlists.substr(split_point))
 	else:
-		print("ending SEM")
+		#print("ending SEM")
 		release_da_buttons()
 
 
 
 
 func release_da_buttons():
-	print("RDB reached")
+	#print("RDB reached")
 	for playlist in Global.playlist_dict:
 		var new_button = Button.new()
 		
@@ -77,7 +77,7 @@ func release_da_buttons():
 
 var curr_focused_button : Array
 func button_down(button, playlist):
-	print("Button Pushed Down")
+	#print("Button Pushed Down")
 	button_dict[button] = true
 	button_edited = button
 	held_timer.wait_time = 1.5
@@ -86,7 +86,7 @@ func button_down(button, playlist):
 	curr_focused_button = [button, playlist]
 
 func button_up(button, playlist):
-	print("Button let go")
+	#print("Button let go")
 	button_dict[button] = false
 	held_timer.stop()
 	if not name_change_popup.visible:
@@ -94,14 +94,14 @@ func button_up(button, playlist):
 
 
 func _on_timer_timeout() -> void:
-	print("Button held")
+	#print("Button held")
 	for button in button_dict:
 		if button_dict[button]:
 			name_changer()
 
 
 func imma_firin_my_playzar(playlist_link):
-	print("BLARG")
+	#print("BLARG")
 	var playlist_id_start = playlist_link.find("list=") + 5
 	if playlist_link.contains("&"):
 		Global.playlist_id = playlist_link.substr(playlist_id_start, playlist_link.find("&") - 1)
@@ -119,11 +119,11 @@ func _on_save_button_pressed() -> void:
 #	curr_focused_button[0].text = name_change_text.text
 #	button_dict[curr_focused_button[0]] = name_change_text.text
 #	Global.playlist_dict[playlist] = name_change_text.text
-	print("Save Button Pressed")
+	#print("Save Button Pressed")
 	if name_change_text.text != "" or name_change_text.text != name_change_text.placeholder_text:
-		print("first if passed")
+		#print("first if passed")
 		if button_edited != null:
-			print("BUtton edited is" + button_edited.text)
+			#print("BUtton edited is" + button_edited.text)
 #			if (button_edited.text in Global.playlist_dict.values()) or button_edited.text in Global.playlist_dict.keys():
 #				print(button_edited.text + " found in the global dictionary!")
 #				for playlist in Global.playlist_dict:
@@ -134,7 +134,7 @@ func _on_save_button_pressed() -> void:
 				
 			for playlist in Global.playlist_dict:
 				if button_edited.text == playlist or button_edited.text == Global.playlist_dict[playlist]:
-					print(button_edited.text + "matched")
+					#print(button_edited.text + "matched")
 					#Global.playlist_dict[playlist] = name_change_text.text
 					Global.save_playlists(playlist, name_change_text.text)
 				else:

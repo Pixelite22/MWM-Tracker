@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://btrr3n6rbtjgj"]
+
+[ext_resource type="Script" uid="uid://b54j6tgem86vy" path="res://Scenes and Code/Scenes/favorite_composers.gd" id="1_51e0u"]
+
+[node name="Favorite Composers" type="Label" unique_id=1498103894]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.072000004
+offset_bottom = -0.16000366
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 67
+text = "Favorite Composers:"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+script = ExtResource("1_51e0u")
+
+[node name="Song List" type="ItemList" parent="." unique_id=447738008]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_behavior_recursive = 2
+allow_search = false
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Song List" to="." method="_on_song_list_mouse_exited"]

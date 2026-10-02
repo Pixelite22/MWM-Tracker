@@ -80,7 +80,7 @@ func load_screen():
 		
 		
 		load_states.FIGHT:
-			print("Start a fight")
+			#print("Start a fight")
 			var sprite1 = create_sprite("Fight Bill")
 			var sprite2 = create_sprite("Fight Ruler")
 			

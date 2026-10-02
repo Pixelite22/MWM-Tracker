@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://switmkn4wqyp"]
 
 [ext_resource type="Script" uid="uid://y1impgdrqw3y" path="res://Scenes and Code/Code/playlist_post_screen.gd" id="1_d7vgh"]
+[ext_resource type="Texture2D" uid="uid://clrsbgc64s7bd" path="res://Assets/Arts/Megamix Stock Icons/Megamix Discord Icon No BG.png" id="2_6oslv"]
 
 [node name="Playlist post screen" type="Control" unique_id=300126671]
 layout_mode = 3
@@ -71,6 +72,25 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 28
 text = "Press me to see a list of previously entered playlists!"
 autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Icon" type="TextureRect" parent="." unique_id=61135790]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.22200002
+anchor_top = 0.1245
+anchor_right = 0.77800006
+anchor_bottom = 0.4375
+offset_left = 0.1599884
+offset_top = 0.4799652
+offset_right = -0.16003418
+offset_bottom = -0.16003418
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(200, 200)
+texture = ExtResource("2_6oslv")
+expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="Go Button" to="." method="_on_button_pressed"]

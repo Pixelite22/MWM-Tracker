@@ -31,7 +31,7 @@ func start_the_show():
 	loading_screen.load_screen()
 	screen_tracking = [display_screen, playlist_post_screen]
 	icon_container.song_reset()
-	print("Link for debug: " + Global.link) #print the link for debug
+	#print("Link for debug: " + Global.link) #print the link for debug
 	Global.set_playlist() #builds the starting link to the webpage we need to pull the info from
 	
 	request_page() #Call the request page func
@@ -62,7 +62,7 @@ func page_read(result, response_code, headers, body):
 	page = JSON.parse_string(body.get_string_from_utf8()) #Set the page to a JSON made of all text on the page
 	
 	song_catcher() #Call this to catch and record song info
-	print(str(Global.composer_dict))
+	#print(str(Global.composer_dict))
 	icon_container.update_stats() #Have the stats actually update on screnn
 	next_page() #move to the next webpage
 
@@ -73,7 +73,7 @@ func song_catcher():
 		var str_start #this is used for the string slicing later
 		var str_end #As is this
 		var song_found = false #this keeps track if a song places correctly
-		print("Song Found is: " + descrips["snippet"]["title"])
+		#print("Song Found is: " + descrips["snippet"]["title"])
 		if description.contains("Character Represented: "): #If the description contains the string listed
 			str_start = description.find("Character Represented: ")  #Set the start of the string we want to that phrase
 			str_end = description.find("\n", str_start) #Then the end to the newline
@@ -120,7 +120,7 @@ func misc_catcher(song_found, str_start, str_end, description, song_name):
 		icon_container.song_sorter("Misc.", song_name)
 
 func character_increment(chars_repped, song_name):
-	print("Characters repped are: " + chars_repped)
+	#print("Characters repped are: " + chars_repped)
 	var song_placed = false
 	var i = 0
 	for character in Global.char_dict: #This searches the character dictionary
@@ -141,7 +141,7 @@ func character_increment(chars_repped, song_name):
 func found_misspellings_and_special_cases(chars_repped, song_placed):
 	#Heaven ascenscion dio instead of heaven ascension dio
 	if chars_repped.to_lower().contains("heaven ascenscion dio"):
-		print("Heaven Ascension DIO found, even with a mispelling")
+		#print("Heaven Ascension DIO found, even with a mispelling")
 		song_placed = true
 		Global.char_dict["Heaven Ascension DIO"][0] += 1
 		if not chars_repped.contains(","): #and if this string doesn't contain the , character, signalling there is no other rep
@@ -163,7 +163,7 @@ func found_misspellings_and_special_cases(chars_repped, song_placed):
 var i = 0
 func next_page():
 	if not page.has("nextPageToken") : #If there is a nextPageToken on the page
-		print("Final page reached!  Final page is page " + str(i))
+		#print("Final page reached!  Final page is page " + str(i))
 		Global.scan_done.emit()
 		#if Global.next_page_key != page["nextPageToken"] && i != 0:
 		#	print("ERROR: PAGE NOT CORRECTLY INCREMENTED ON " + str(i) + " TRY")

@@ -135,19 +135,32 @@ func char_setup(type : Array, base_node : Control):
 var top_comps = []
 @onready var favorite_composers: Label = $"ScrollContainer/VBoxContainer/Favorite Composers"
 func fav_comp():
-	Global.composer_times.sort()
-	var i = 1
+	var comp_array = []
 	for musician in Global.composer_times:
-		if top_comps.size() < 3:
-			top_comps.append({musician: Global.composer_dict[musician]})
-			var composer = favorite_composers.duplicate()
-			composer.text = musician
-			v_box_container.add_child(composer)
-			var song_list = ItemList.new()
-			for song in Global.composer_dict[musician]:
-				song_list.add_item(song)
-			composer.add_child(song_list)
-			v_box_container.move_child(composer, favorite_composers.get_index() + i)
-			i += 1
-		else:
-			break
+		comp_array.append([musician, Global.composer_times[musician]])
+	
+	comp_array.sort_custom(comp_sorting)
+	
+	var i = 1
+	for music in comp_array:
+		if music[0] != "Anonymous (Per Request)":
+			if top_comps.size() < 3:
+				top_comps.append({music[0] : Global.composer_dict[music[0]]})
+				
+				var composer_load = load("res://Scenes and Code/Scenes/favorite_composers.tscn")#favorite_composers.duplicate()
+				var composer = composer_load.instantiate()
+				composer.text = music[0]
+				v_box_container.add_child(composer)
+				for song in Global.composer_dict[music[0]]:
+					composer.songs.append(song)
+				composer.list_em()
+				v_box_container.move_child(composer, favorite_composers.get_index() + i)
+				i += 1
+			else:
+				break
+
+
+func comp_sorting(a, b):
+	if a[1] > b[1]:
+		return true
+	return false

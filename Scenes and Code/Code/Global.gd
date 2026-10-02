@@ -120,7 +120,6 @@ func prev_page():
 
 #NEED TO CHANGE THIS TO HANDLE SAVING A DICTIONARY INSTEAD OF TEXT
 func save_playlists(playlist, name = ""):
-	print("Save_Playlist reached in GLobal")
 	#load the playlist into the general dict
 	load_playlists()
 	
@@ -147,14 +146,14 @@ func load_playlists():
 	var line
 	while not file.eof_reached():
 		line = file.get_line()
-		print("Line: " + line)
+		#print("Line: " + line)
 		if not line.begins_with("#"):
 			var playlist_link_start = line.find("http") #find the playlist in the file
 			var playlist_name_start = line.find(" Named: ") + 8
 			var playlist_line_ends = line.find("|") #find the end of the playlist in the file
-			print("Start is at: " + str(playlist_link_start) + 
-			" Name split at: " + str(playlist_name_start) + 
-			" End at: " + str(playlist_line_ends))
+			#print("Start is at: " + str(playlist_link_start) + 
+			#" Name split at: " + str(playlist_name_start) + 
+			#" End at: " + str(playlist_line_ends))
 			
 			playlist_dict.get_or_add(line.strip_edges().substr(playlist_link_start, playlist_name_start - 8), line.strip_edges().substr(playlist_name_start, playlist_line_ends - 1).trim_suffix("|"))
 	
