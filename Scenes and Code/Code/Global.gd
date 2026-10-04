@@ -43,6 +43,7 @@ var char_dict : Dictionary = {
 	"Discoholic" : [0, 0, 0],
 	"Cici" : [0, 0, 0],
 	"Dexter's Dad" : [0, 0, 0],
+	"Tony Stark" : [0, 0, 0],
 	"Misc." : [0, 0, 0]
 }
 

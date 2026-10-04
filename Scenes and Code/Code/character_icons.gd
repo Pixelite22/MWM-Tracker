@@ -42,6 +42,7 @@ var char_img_dict : Dictionary = {
 	"Discoholic" : ["res://Assets/Arts/Megamix Stock Icons/disco.png", "res://Assets/Arts/Name Plates/discoholic_plate.png", "res://Assets/Arts/Full Art/Discoholic_Portrait (Crack Frost).png"],
 	"Cici" : ["res://Assets/Arts/Megamix Stock Icons/cici.png", "res://Assets/Arts/Name Plates/cici_nameplate.png", "res://Assets/Arts/Full Art/mwm_cici_render_f (EvKem).png"],
 	"Dexter's Dad" : ["res://Assets/Arts/Megamix Stock Icons/Dexter_s Dad Stock Icon (MS360).png", "res://Assets/Arts/Name Plates/dexters_dad_plate_1.png", "res://Assets/Arts/Full Art/Dexter_s Dad (TVGhost).png"],
+	"Tony Stark" : ["res://Assets/Arts/Megamix Stock Icons/Tony_Stark_Stock_Icon_-_Megamix_Guest_FenzoFRFR.png", null, null],
 	"Misc." : ["res://Assets/Arts/Megamix Stock Icons/Megamix Discord Icon No BG.png", "res://Assets/Arts/Name Plates/Mashup_Week_Megamix_nameplate.png", "res://Assets/Arts/Megamix Stock Icons/Megamix Discord Icon No BG.png"]
 }
 
@@ -61,7 +62,7 @@ func _ready() -> void:
 	Global.scan_done.connect(song_list)
 
 func icon_setup(full_art := false):
-	if full_art:
+	if full_art and char_img_dict[character][2] != null:
 		icon.texture = load(char_img_dict[character][2])
 	else:
 		icon.texture = load(char_img_dict[character][0]) #load the image associated with the character into the icon node

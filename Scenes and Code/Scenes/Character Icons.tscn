@@ -57,6 +57,8 @@ anchors_preset = -1
 anchor_right = 0.33200002
 anchor_bottom = 1.0
 offset_right = 0.19999695
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 50
 text = "Songs:
 x"
@@ -69,6 +71,8 @@ anchor_left = 0.33200002
 anchor_right = 0.665
 anchor_bottom = 1.0
 offset_left = 0.19999695
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 50
 text = "Solos:
 x"
@@ -83,6 +87,8 @@ anchor_bottom = 1.0
 offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 50
 text = "Collabs:
 x"

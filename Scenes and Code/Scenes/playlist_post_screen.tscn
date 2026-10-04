@@ -20,6 +20,8 @@ anchor_right = 1.0
 anchor_bottom = 0.12625
 offset_bottom = 0.3999939
 grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 34
 text = "Please input the link to your playlist below!"
 horizontal_alignment = 1
@@ -90,7 +92,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(200, 200)
 texture = ExtResource("2_6oslv")
-expand_mode = 1
+expand_mode = 2
 metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="Go Button" to="." method="_on_button_pressed"]

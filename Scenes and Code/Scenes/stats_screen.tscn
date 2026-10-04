@@ -32,6 +32,8 @@ alignment = 1
 [node name="Favorite Character Label" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=683854089]
 layout_mode = 2
 size_flags_vertical = 6
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 77
 text = "Favorite Character!"
 horizontal_alignment = 1
@@ -43,6 +45,8 @@ character = "Ace D. Copular"
 [node name="Runner Up Label" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=260160381]
 layout_mode = 2
 size_flags_vertical = 6
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 77
 text = "Runner Up!"
 horizontal_alignment = 1
@@ -54,6 +58,8 @@ character = "Ace D. Copular"
 [node name="Solo Label" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=2083326126]
 layout_mode = 2
 size_flags_vertical = 6
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 77
 text = "Favorite Solo Act!"
 horizontal_alignment = 1
@@ -65,6 +71,8 @@ character = "Ace D. Copular"
 [node name="Colab Label" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1039801759]
 layout_mode = 2
 size_flags_vertical = 6
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 77
 text = "Favorite Collaber!"
 horizontal_alignment = 1
@@ -76,6 +84,8 @@ character = "Ace D. Copular"
 [node name="Least Favorite Label" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=356772807]
 layout_mode = 2
 size_flags_vertical = 6
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 77
 text = "Least Favorite..."
 horizontal_alignment = 1
@@ -86,6 +96,8 @@ character = "Ace D. Copular"
 
 [node name="Favorite Composers" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=589039922]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 67
 text = "Favorite Composers:"
 horizontal_alignment = 1

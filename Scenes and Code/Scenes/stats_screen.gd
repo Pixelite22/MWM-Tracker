@@ -7,7 +7,17 @@ extends Control
 @onready var v_box_container: VBoxContainer = $ScrollContainer/VBoxContainer
 @onready var least_favorite_character: Control = $"ScrollContainer/VBoxContainer/Least Favorite Character"
 
-var least_excludes = ["Scott the Woz", "Susie Haltmann", "Discoholic", "Cici", "Dexter's Dad", "Misc."]
+var least_excludes = ["Scott the Woz", "Susie Haltmann", "Discoholic", "Cici", "Dexter's Dad", "Tony Stark", "Garfield", "Misc."]
+##Explainers for the Exclusions:
+##The app is meant to be for active participants, meaning the characters that aren't in the tourney shouldnt be included
+##These characters also have the least songs available, meaning if you favorite somehow IS one of them, they still could theoretically read as least due to their low songs making them outliers
+##Scott and Susie have been in a while and might be worth readding for some though
+##Discoholic and Cici have only just joined so they don't have enough time... though a Cici joke winning screen could be funny
+##Dexter's Dad is a joke character with one real song and one advertisment that is treated as a song.
+##Tony Stark and Garfield each have a single song in the entire tourny, both in remix week.  They aren't really characters but just needed to be credited properly
+##Misc is the catch all for the songs that have characters we haven't heard of
+
+
 
 var favs = [
 	["N/A", 0]

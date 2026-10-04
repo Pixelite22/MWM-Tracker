@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b4u1nnlvhrbtr"]
 
 [ext_resource type="Script" uid="uid://dc0ys13yxbpml" path="res://Scenes and Code/Code/Main.gd" id="1_st8tq"]
-[ext_resource type="Texture2D" uid="uid://fy7du6qm2hst" path="res://Assets/Arts/Mashup week proto background.png" id="2_duvmg"]
+[ext_resource type="Texture2D" uid="uid://qsjyvujpngg0" path="res://Assets/Arts/bracket_bg.png" id="2_7y8cd"]
 [ext_resource type="Script" uid="uid://deb8a5l7mtanf" path="res://Scenes and Code/Code/icon_container.gd" id="2_mvrhl"]
 [ext_resource type="PackedScene" uid="uid://switmkn4wqyp" path="res://Scenes and Code/Scenes/playlist_post_screen.tscn" id="4_bdkiy"]
 [ext_resource type="PackedScene" uid="uid://gigcplmt0upt" path="res://Scenes and Code/Scenes/menu_screen.tscn" id="5_7njfj"]
@@ -23,9 +23,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -152.0
+offset_right = 152.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_duvmg")
+texture = ExtResource("2_7y8cd")
 
 [node name="Display Screen" type="Control" parent="." unique_id=259022269]
 visible = false
