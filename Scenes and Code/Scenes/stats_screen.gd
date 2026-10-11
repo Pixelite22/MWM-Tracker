@@ -6,6 +6,11 @@ extends Control
 @onready var colab_character: Control = $"ScrollContainer/VBoxContainer/Colab Character"
 @onready var v_box_container: VBoxContainer = $ScrollContainer/VBoxContainer
 @onready var least_favorite_character: Control = $"ScrollContainer/VBoxContainer/Least Favorite Character"
+@onready var favorite_composers: Label = $"ScrollContainer/VBoxContainer/Favorite Composers"
+@onready var og_song_count: Label = $"ScrollContainer/VBoxContainer/OG Song Count"
+@onready var remix_count_header: Label = $"ScrollContainer/VBoxContainer/Remix Count Header"
+@onready var song_count: Label = $"ScrollContainer/VBoxContainer/Song Count"
+#@onready var remix_or_og: Label = $"ScrollContainer/VBoxContainer/Remix or OG"
 
 var least_excludes = ["Scott the Woz", "Susie Haltmann", "Discoholic", "Cici", "Dexter's Dad", "Tony Stark", "Garfield", "Misc."]
 ##Explainers for the Exclusions:
@@ -18,7 +23,7 @@ var least_excludes = ["Scott the Woz", "Susie Haltmann", "Discoholic", "Cici", "
 ##Misc is the catch all for the songs that have characters we haven't heard of
 
 
-
+#Declare some needed nested arrays
 var favs = [
 	["N/A", 0]
 ]
@@ -48,46 +53,50 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
+func setup():
+	char_finder()
+	fav_comp()
+	misc_value_handling()
+
 func char_finder():
 	for char in Global.char_dict:
 		if Global.char_dict[char][0] >= favs[0][1]: #Makes sure the current fav is less
-#			for item in favs: #then for each array in favs
-#				runner_up_edits(item[0], item[1]) #pass the former fav to the runner ups
-			
 			fav_edits(char, Global.char_dict[char][0]) #Then mark the new fav
-		if Global.char_dict[char][0] <= womp_womps[0][1]:
-			least_edits(char, Global.char_dict[char][0])
-		if Global.char_dict[char][1] >= solos[0][1]:
-			soloist(char, Global.char_dict[char][1])
-		if Global.char_dict[char][2] >= colabs[0][1]:
-			colaber(char, Global.char_dict[char][2])
+		if Global.char_dict[char][0] <= womp_womps[0][1]: #Make sure the least fav character is chosen of the two
+			least_edits(char, Global.char_dict[char][0]) #Mark them as new least fav
+		if Global.char_dict[char][1] >= solos[0][1]: #If observed char has more or the same solos then the current highest
+			soloist(char, Global.char_dict[char][1]) #set them as new solo
+		if Global.char_dict[char][2] >= colabs[0][1]: #If observed char has more or the same colabs then current highest
+			colaber(char, Global.char_dict[char][2]) #Set them as new colaber
 
-	for char in Global.char_dict:
-		if Global.char_dict[char][0] >= runner_ups[0][1]:
-			runner_up_edits(char, Global.char_dict[char][0])
+	for char in Global.char_dict: #loop again for runner up
+		if Global.char_dict[char][0] >= runner_ups[0][1]: #If observed character is bigger or equal to  current runner up
+			runner_up_edits(char, Global.char_dict[char][0]) #Push through to runner up edits
 	
-	set_the_stage()
+	set_the_stage() #Display results
 
 func runner_up_edits(char, value):
-	for fav in favs:
+	#if the passed in character is in the favorites array, end the function early as they are a favorite
+	for fav in favs: 
 		if char in fav:
 			return
 	
-	if runner_ups[0][1] < value:
-		runner_ups.clear()
-	runner_ups.append([char, value])
+	if runner_ups[0][1] < value: #If the value is greater then current runner up
+		runner_ups.clear() #Clear the array
+	runner_ups.append([char, value]) #append the runner up
 
+#Most of the following follow the same pattern of, check if bigger, if they are, clear the array, and no matter what, append the new char
 func fav_edits(char, value):
 	if favs[0][1] < value:
 		favs.clear()
 	favs.append([char, value])
 
 func least_edits(char, value):
-	if not char in least_excludes:
+	if not char in least_excludes: #This makes sure chars I have listed but shouldn't be considered a least favorite due to not being in the tourney proper aren't counted as a least favorite
 		if womp_womps[0][1] > value:
 			womp_womps.clear()
 		womp_womps.append([char, value])
-		print("Least favorites: " + str(womp_womps))
+		#print("Least favorites: " + str(womp_womps))
 
 func soloist(char, value):
 	if solos[0][1] < value:
@@ -116,61 +125,82 @@ func set_the_stage():
 	char_setup(womp_womps, least_favorite_character)
 
 func char_setup(type : Array, base_node : Control):
-	print("Entered Char_Setup for " + base_node.name)
-	print(type)
-	var new_char
-	if type.size() > 1:
-		for char in type:
-			print(char)
-			new_char = base_node.duplicate()
-			v_box_container.add_child(new_char)
-			v_box_container.move_child(new_char, base_node.get_index())
-			print(new_char)
-			new_char.set_script(load("res://Scenes and Code/Code/character_icons.gd"))
+	#print("Entered Char_Setup for " + base_node.name)
+	#print(type)
+	var new_char #initialize for the character being handled
+	if type.size() > 1: #if the array passed in has more then one element
+		for char in type: #For each character in that array
+			#print(char)
+			new_char = base_node.duplicate() #Duplicate the placeholder base_node
+			v_box_container.add_child(new_char) #add it to the v_box
+			v_box_container.move_child(new_char, base_node.get_index()) #and move it to the proper position
+			#print(new_char)
+			new_char.set_script(load("res://Scenes and Code/Code/character_icons.gd")) #then ensure it has the necissary script on it
 			#await new_char.ready
-			new_char.character = char[0]
-			new_char.icon_setup(true)
-			new_char.update_stats()
-			new_char.song_list()
-			print(new_char.name + " is " + new_char.character)
-		base_node.hide()
-	else:
-		base_node.show()
-		base_node.character = type[0][0]
+			new_char.character = char[0] #Set the character by targeting it in the array
+			new_char.icon_setup(true) #Call the icon setup on the character
+			new_char.update_stats() #Update the stats so they show proper
+			#new_char.song_list() #update the song list ##NOT WORKING AS OF RIGHT NOW
+			#print(new_char.name + " is " + new_char.character)
+		base_node.hide() #Hide the base node 
+	else: #If the array only has one character
+		base_node.show() #Ensure the base node is visible
+		#and set it up like how the duplicates were set up in the if section
+		base_node.character = type[0][0] 
 		base_node.icon_setup(true)
 		base_node.update_stats()
 		base_node.song_list()
-		print(base_node.name + " is " + base_node.character)
+		#print(base_node.name + " is " + base_node.character)
 
 var top_comps = []
-@onready var favorite_composers: Label = $"ScrollContainer/VBoxContainer/Favorite Composers"
 func fav_comp():
 	var comp_array = []
-	for musician in Global.composer_times:
-		comp_array.append([musician, Global.composer_times[musician]])
+	for musician in Global.composer_times: #Loop through the musicians that appear in the composer times dictionary in global
+		comp_array.append([musician, Global.composer_times[musician]]) #append that musician to the comp_array
 	
-	comp_array.sort_custom(comp_sorting)
+	comp_array.sort_custom(comp_sorting) #and sort it from highest to lowest
 	
 	var i = 1
-	for music in comp_array:
-		if music[0] != "Anonymous (Per Request)":
-			if top_comps.size() < 3:
+	for music in comp_array: #for each musician in the comp array
+		if music[0] != "Anonymous (Per Request)": #if they are anonymous, remove them as this can be a variety of people
+			if top_comps.size() < 3: #Fill top_comp with only the top 3 composers
 				top_comps.append({music[0] : Global.composer_dict[music[0]]})
 				
-				var composer_load = load("res://Scenes and Code/Scenes/favorite_composers.tscn")#favorite_composers.duplicate()
-				var composer = composer_load.instantiate()
-				composer.text = music[0]
-				v_box_container.add_child(composer)
-				for song in Global.composer_dict[music[0]]:
+				var composer_load = load("res://Scenes and Code/Scenes/favorite_composers.tscn") #load a new composer scene
+				var composer = composer_load.instantiate() #instantiate it
+				composer.text = music[0] #Change the text to be that of a composers name
+				v_box_container.add_child(composer) #add the child to the vbox
+				for song in Global.composer_dict[music[0]]: #not currently working but meant to list their songs
 					composer.songs.append(song)
-				composer.list_em()
-				v_box_container.move_child(composer, favorite_composers.get_index() + i)
-				i += 1
-			else:
-				break
+				composer.list_em() #List composer music
+				v_box_container.move_child(composer, favorite_composers.get_index() + i) #move composer node to the correct spot
+				i += 1 #increment i 
+			else: #When the array has more then three
+				break #break the loop
 
 
 func comp_sorting(a, b):
+	#if the value at index 1 of a is greater then that of b, return true, otherwise return false so they can flip
 	if a[1] > b[1]:
 		return true
 	return false
+
+func misc_value_handling():
+	#count how many songs are for the megamix proper
+	og_song_count.text = "Megamix Songs: "
+	og_song_count.text += str(Global.og_songs)
+	
+	#count how many are from remix week
+	remix_count_header.text = "Remix Week Songs: "
+	remix_count_header.text += str(Global.remix_songs)
+	
+	#Let the user know which they like more!
+	#if Global.remix_songs > Global.og_songs:
+	#	remix_or_og.text = "Remix!"
+	#elif Global.remix_songs < Global.og_songs:
+	#	remix_or_og.text = "Megamix Master!"
+	#else:
+	#	remix_or_og.text = "...How did you have an even mix of remixes and originals..."
+	
+	#List the number of songs in the playlist
+	song_count.text = "You have x songs in this playlist!".replace("x", str(Global.remix_songs + Global.og_songs + Global.unknown_songs))

@@ -18,7 +18,7 @@ func list_em():
 		song_list.add_item(song)
 
 func _on_mouse_entered() -> void:
-	print("Comp mouse entered")
+	#print("Comp mouse entered")
 	song_list.position = get_local_mouse_position()
 	song_list.show()
 

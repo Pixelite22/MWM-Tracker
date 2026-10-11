@@ -5,6 +5,7 @@ extends Control
 @onready var saved_playlist_screen: Control = $"Saved Playlist Screen"
 @onready var loading_screen: Control = $"Loading Screen"
 @onready var stats_screen: Control = $"Stats Screen"
+@onready var transition_animations: Control = $"Transition Animations"
 
 
 @onready var http_request: HTTPRequest = $HTTPRequest
@@ -23,6 +24,9 @@ func _ready() -> void:
 	Global.scan_done.connect(shows_over)
 
 func start_the_show():
+	transition_animations.icon_transition()
+	await transition_animations.transition_hiding
+	
 	for child in get_children(): #for child nodes
 		if child is not TextureRect and child is not HTTPRequest: #if the node isn't the background or the internet grabber
 			child.hide() #hide the child
@@ -37,11 +41,17 @@ func start_the_show():
 	request_page() #Call the request page func
 
 func load_em_and_show_em():
+	transition_animations.icon_transition()
+	await transition_animations.transition_hiding
+	
 	for child in get_children(): #for all child nodes
 		if child is not TextureRect and child is not HTTPRequest: #if node isnt background or internet grabber
 			child.hide() #hide it
 	saved_playlist_screen.show() #show the saved playlist
 	screen_tracking = [saved_playlist_screen, playlist_post_screen]
+	if saved_playlist_screen.find_child("VBoxContainer", true):
+		for button in saved_playlist_screen.find_child("VBoxContainer", true).get_children():
+			button.queue_free()
 	saved_playlist_screen.sort_em_out(Global.load_playlists()) #start the sorting function on the loaded playlist 
 
 var last_link
@@ -56,7 +66,17 @@ func request_page():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if display_screen.visible:
+		screen_tracking = [display_screen, playlist_post_screen]
+	if Input.is_action_just_pressed("Backout"):
+		if screen_tracking[0] == display_screen:
+			for char in Global.char_dict:
+				Global.char_dict[char] = [0, 0, 0]
+		screen_tracking[1].show()
+		screen_tracking[0].hide()
+		var temp = screen_tracking[1]
+		screen_tracking[1] = screen_tracking[0]
+		screen_tracking[0] = screen_tracking[1]
 
 func page_read(result, response_code, headers, body):
 	page = JSON.parse_string(body.get_string_from_utf8()) #Set the page to a JSON made of all text on the page
@@ -75,24 +95,24 @@ func song_catcher():
 		var song_found = false #this keeps track if a song places correctly
 		#print("Song Found is: " + descrips["snippet"]["title"])
 		if description.contains("Character Represented: "): #If the description contains the string listed
-			str_start = description.find("Character Represented: ")  #Set the start of the string we want to that phrase
+			str_start = description.find("Character Represented: ") + 23  #Set the start of the string we want to that phrase
 			str_end = description.find("\n", str_start) #Then the end to the newline
-			song_found = character_increment(description.substr(str_start + 23, str_end - (str_start + 23)), descrips["snippet"]["title"]) #And pull out just the characters, passing them to the character increment function
+			song_found = character_increment(description.substr(str_start, str_end - (str_start)), descrips["snippet"]["title"]) #And pull out just the characters, passing them to the character increment function
 			misc_catcher(song_found, str_start, str_end, description, descrips["snippet"]["title"])
 		elif description.contains("Characters Represented: "): #This is a repeat of above but on colab tracks
-			str_start = description.find("Characters Represented: ")
+			str_start = description.find("Characters Represented: ") + 24
 			str_end = description.find("\n", str_start)
-			song_found = character_increment(description.substr(str_start + 24, str_end - (str_start + 24)), descrips["snippet"]["title"])
+			song_found = character_increment(description.substr(str_start, str_end - (str_start)), descrips["snippet"]["title"])
 			misc_catcher(song_found, str_start, str_end, description, descrips["snippet"]["title"])
 		elif description.contains("Character: "):
-			str_start = description.find("Character: ")
+			str_start = description.find("Character: ") + 11
 			str_end = description.find("\n", str_start)
-			song_found = character_increment(description.substr(str_start + 11, str_end - (str_start + 11)), descrips["snippet"]["title"])
+			song_found = character_increment(description.substr(str_start, str_end - (str_start)), descrips["snippet"]["title"])
 			misc_catcher(song_found, str_start, str_end, description, descrips["snippet"]["title"])
 		elif description.contains("Characters: "):
-			str_start = description.find("Characters: ")
+			str_start = description.find("Characters: ") + 12
 			str_end = description.find("\n", str_start)
-			song_found = character_increment(description.substr(str_start + 12, str_end - (str_start + 12)), descrips["snippet"]["title"])
+			song_found = character_increment(description.substr(str_start, str_end - str_start), descrips["snippet"]["title"])
 			misc_catcher(song_found, str_start, str_end, description, descrips["snippet"]["title"])
 		
 		var musician_found
@@ -109,15 +129,31 @@ func musician_credit(musician_name, song_name):
 		Global.composer_dict.get_or_add(musician_name, [song_name])
 		Global.composer_times[musician_name] = 1
 
-
+#One error is this won't catch collabs with unidentified characters (holy fuck scott the woz) having tony being a big example
 func misc_catcher(song_found, str_start, str_end, description, song_name):
-	if not song_found:
+	if not song_found or description.contains("Tony Stark"): #Bad fix and should rework this but for now Tony is the only exception where he appears in a collab with scott
+		print(song_name + " Not found ")
+		var character_found = []
 		Global.char_dict["Misc."][0] += 1
 		if description.substr(str_start, str_end - str_start).contains(",") or description.substr(str_start, str_end - str_start).contains("All"):
 			Global.char_dict["Misc."][2] += 1
+			if description.substr(str_start, str_end - str_start).contains(","):
+				var com_ctr = 0
+				for char in description.substr(str_start, str_end - str_start):
+					if char == ",":
+						com_ctr += 1
+				var curr_string = description.substr(str_start, str_end - str_start)
+				for i in range(com_ctr + 1):
+					var char_split = curr_string.find(", ")
+					if not curr_string.substr(0, char_split) in Global.char_dict.keys():
+						character_found.append(curr_string.substr(0, char_split))
+					curr_string = curr_string.substr(char_split + 2)
+			else:
+				character_found.append(description.substr(str_start, str_end - str_start))
+			print("Misc Chars found", character_found)
 		else:
 			Global.char_dict["Misc."][1] += 1
-		icon_container.song_sorter("Misc.", song_name)
+		icon_container.song_sorter("Misc.", song_name, true, character_found)
 
 func character_increment(chars_repped, song_name):
 	#print("Characters repped are: " + chars_repped)
@@ -187,8 +223,7 @@ func shows_over():
 	#$"Display Screen/End Message".hide()
 	loading_screen.hide()
 	display_screen.show()
-	stats_screen.char_finder()
-	stats_screen.fav_comp()
+	stats_screen.setup()
 
 func backstage_pass():
 	display_screen.hide()

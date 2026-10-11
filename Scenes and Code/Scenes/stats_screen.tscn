@@ -21,6 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 0
 follow_focus = true
+scroll_vertical = 100
 metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=1617241175]
@@ -94,12 +95,65 @@ horizontal_alignment = 1
 layout_mode = 2
 character = "Ace D. Copular"
 
+[node name="Spacing" type="ColorRect" parent="ScrollContainer/VBoxContainer" unique_id=579218571]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.19607843, 0.19607843, 0.19607843, 0)
+
 [node name="Favorite Composers" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=589039922]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 67
 text = "Favorite Composers:"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Spacing2" type="ColorRect" parent="ScrollContainer/VBoxContainer" unique_id=1615440318]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.19607843, 0.19607843, 0.19607843, 0)
+
+[node name="Song Breakdown Header" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=864327394]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 67
+text = "Song Breakdowns:"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Song Count" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1733161620]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 67
+text = "You have x songs in this playlist!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="OG Song Count" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1090490173]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 67
+text = "Megamix Count:"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Remix Count Header" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=522939325]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 67
+text = "Remix Count:"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
