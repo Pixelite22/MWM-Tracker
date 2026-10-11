@@ -42,8 +42,8 @@ var char_img_dict : Dictionary = {
 	"Discoholic" : ["res://Assets/Arts/Megamix Stock Icons/disco.png", "res://Assets/Arts/Name Plates/discoholic_plate.png", "res://Assets/Arts/Full Art/Discoholic_Portrait (Crack Frost).png"],
 	"Cici" : ["res://Assets/Arts/Megamix Stock Icons/cici.png", "res://Assets/Arts/Name Plates/cici_nameplate.png", "res://Assets/Arts/Full Art/mwm_cici_render_f (EvKem).png"],
 	"Dexter's Dad" : ["res://Assets/Arts/Megamix Stock Icons/Dexter_s Dad Stock Icon (MS360).png", "res://Assets/Arts/Name Plates/dexters_dad_plate_1.png", "res://Assets/Arts/Full Art/Dexter_s Dad (TVGhost).png"],
-	"Tony Stark" : ["res://Assets/Arts/Megamix Stock Icons/Tony_Stark_Stock_Icon_-_Megamix_Guest_FenzoFRFR.png", null, null],
-	"Misc." : ["res://Assets/Arts/Megamix Stock Icons/Megamix Discord Icon No BG.png", "res://Assets/Arts/Name Plates/Mashup_Week_Megamix_nameplate.png", "res://Assets/Arts/Megamix Stock Icons/Megamix Discord Icon No BG.png"]
+	#"Tony Stark" : ["res://Assets/Arts/Megamix Stock Icons/Tony_Stark_Stock_Icon_-_Megamix_Guest_FenzoFRFR.png", null, "res://Assets/Arts/Full Art/Tony Stark (aeiouko).png"],
+	"Misc." : ["res://Assets/Arts/Misc. Combined Icon.png", "res://Assets/Arts/Name Plates/Mashup_Week_Megamix_nameplate.png", "res://Assets/Arts/Misc. Combined Icon.png"]
 }
 
 @onready var icon: TextureRect = $Icon
@@ -74,17 +74,22 @@ func update_stats():
 	songs.text = "Songs:\n" + str(Global.char_dict[character][0]) 
 	solos.text = "Solos:\n" + str(Global.char_dict[character][1])
 	collabs.text = "Collabs:\n" + str(Global.char_dict[character][2])
+	if character == "Misc.":
+		print("Songs Included: ", songs_included)
 
 func song_list():
 	for song in songs_included: #For all the songs
 		if song.contains(" - Mashup Week: Megamix"): #If the title includes the normal mashup week tag
 			var song_end = song.find(" - Mashup Week: Megamix") #find the index it is on
-			item_list.add_item(song.substr(0, song_end)) #and add the song to the list after cutting off the tag
+			item_list.add_item(song.substr(0, song_end) + song.substr(song_end + 23)) #and add the song to the list after cutting off the tag
+			Global.og_songs += 1
 		elif song.contains(" - Remix Week"): #Repeat above but for remix tag
 			var song_end = song.find(" - Remix Week")
-			item_list.add_item(song.substr(0, song_end))
+			item_list.add_item(song.substr(0, song_end) + song.substr(song_end + 13))
+			Global.remix_songs += 1
 		else: #and if none of the tags are there
 			item_list.add_item(song) #Just add the song 
+			Global.unknown_songs += 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

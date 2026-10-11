@@ -43,7 +43,7 @@ var char_dict : Dictionary = {
 	"Discoholic" : [0, 0, 0],
 	"Cici" : [0, 0, 0],
 	"Dexter's Dad" : [0, 0, 0],
-	"Tony Stark" : [0, 0, 0],
+	#"Tony Stark" : [0, 0, 0],
 	"Misc." : [0, 0, 0]
 }
 
@@ -59,8 +59,8 @@ var composer_times = {
 	#musician : amount of songs
 }
 
-var link : String = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=INSERTPLAYLISTID&key=INSERTAPIKEY"
-var link_default : String = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=INSERTPLAYLISTID&key=INSERTAPIKEY"
+var link : String = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=INSERTPLAYLISTID&key=INSERTAPIKEY"
+var link_default : String = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&&playlistId=INSERTPLAYLISTID&key=INSERTAPIKEY"
 @export var playlist_id : String = "PLTQBco8DHO4Q"
 #my playlist: "PLTQBco8DHO4Q"
 #Full Playlist: "PLaUNjVsOkdzfbAZzATdDQjYsVaDnae2bk"
@@ -72,6 +72,10 @@ var prev_page_key : String
 var page_token_ext : String = "&pageToken="
 
 const save_file := "user://playlist... list.json"
+
+var remix_songs = 0
+var og_songs = 0
+var unknown_songs = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -89,12 +93,10 @@ func roll_call():
 		i += 1
 
 func set_playlist():
-	if link != link_default:
-		link = link_default
-	link = link.replace("INSERTPLAYLISTID", playlist_id)
-	link = link.replace("INSERTAPIKEY", api_key)
-	#print("Link to the first page of the api website is: " + link)
-	
+	if link != link_default: #If the link isn't the default link
+		link = link_default #set the link to the cookiecutter defalt
+	link = link.replace("INSERTPLAYLISTID", playlist_id) #Replace the playlist placeholder with the playlist id
+	link = link.replace("INSERTAPIKEY", api_key) #Replace the API key placeholder with the API key
 
 func next_page():
 	#Come back here when we have code to narrow down certain parts of the page... and also after we have actually accessed the page
@@ -126,19 +128,19 @@ func save_playlists(playlist, name = ""):
 	
 	#Determine if it is a new or already saved playlist
 	var new_playlist : bool
-	if playlist in playlist_dict.keys():
-		new_playlist = false
-		if name != "":
-			playlist_dict[playlist] = name
-	else:
-		new_playlist = true
-		playlist_dict.get_or_add(playlist, name)
+	if playlist in playlist_dict.keys(): #if it is already in the playlist dictionary keys
+		new_playlist = false #Set new playlist to false
+		if name != "": #If the name passed in isn't blank
+			playlist_dict[playlist] = name #Make the playlist key saved as the nickname 
+	else: #otherwise
+		new_playlist = true #set it to a new playlist
+		playlist_dict.get_or_add(playlist, name) #Add it to the playlist
 	
-	var file = FileAccess.open(save_file, FileAccess.WRITE)
-	for list in playlist_dict:
-		file.store_string(playlist + " Named: " + name + "|")
+	var file = FileAccess.open(save_file, FileAccess.WRITE) #Open the save files
+	for list in playlist_dict: #For each line in the playlist dictionary
+		file.store_string(playlist + " Named: " + name + "|") #store the string of the playlist, the name of the playlist, and the | end marker
 	
-	file.close()
+	file.close() #Close the file
 
 #Load file data into playlist Dictionary
 func load_playlists():
