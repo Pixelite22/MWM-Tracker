@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://dbhtdeedcwths"]
+
+[ext_resource type="Script" uid="uid://b8htmrq4dlw3q" path="res://Scenes and Code/Code/transition_animations.gd" id="1_3berw"]
+[ext_resource type="VideoStream" uid="uid://r3emq34wgye6" path="res://Assets/Arts/Other/intro.ogv" id="2_8lxwc"]
+
+[node name="Transition Animations" type="Control" unique_id=1865240901]
+z_index = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_3berw")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=724140504]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=1298155470]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stream = ExtResource("2_8lxwc")

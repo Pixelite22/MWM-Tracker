@@ -7,23 +7,18 @@ signal saved_playlist_show
 @onready var go_button: Button = $"Go Button"
 @onready var saved_playlists_button: Button = $"Saved Playlists Button"
 @onready var icon: TextureRect = $Icon
-
+@onready var icon_sprite: Sprite2D = $"Icon Sprite"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	icon_tween()
+	icon_beat()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if visible and tween and tween.is_valid() and not tween.is_running():
+		icon_beat()
 
-func icon_tween():
-	var tween = create_tween()
-	tween.set_loops()
-	tween.tween_property(icon, "scale", Vector2(0.75, 0.75), 1.5)
-	tween.tween_property(icon, "scale", Vector2(1, 1), 1.5)
-	get_tree().create_timer(0.1).timeout
 
 func _on_button_pressed() -> void:
 	#print("Button Pressed") 
@@ -38,9 +33,23 @@ func _on_button_pressed() -> void:
 	
 	#print(Global.load_playlists())
 	
+	await icon_transed
+	
 	playlist_button_pressed.emit()
 
 
 func _on_saved_playlists_button_pressed() -> void:
 	saved_playlist_show.emit()
 	
+
+signal icon_transed
+var tween : Tween = create_tween()
+func icon_beat():
+	if tween: 
+		tween.kill()
+	tween = create_tween()
+	tween.set_loops()
+	tween.tween_property(icon_sprite, "scale", Vector2(0.4, 0.4) * Vector2(0.75, 0.75), 1.5)
+	tween.tween_property(icon_sprite, "scale", Vector2(0.4, 0.4), 1.5)
+	#tween.stop()
+	get_tree().create_timer(0.1).timeout
