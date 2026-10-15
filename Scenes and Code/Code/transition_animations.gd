@@ -23,30 +23,30 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
+#Called when we need a video to play
 func video_call(video = "Transition"):
-	var tween = create_tween()
+	var tween = create_tween() #create a tween
 	
-	await tween.tween_property(color_rect, "color", Color(0.0, 0.0, 0.0), 2.5).finished
+	await tween.tween_property(color_rect, "color", Color(0.0, 0.0, 0.0), 2.0).finished #fade the app to dark
 	
-	video_stream_player.stream = video_dict[video]
-	video_stream_player.show()
-	video_stream_player.play()
+	video_stream_player.stream = video_dict[video] #set the video to the correct stream
+	video_stream_player.show() #show the video
+	video_stream_player.play() #and play it
 	
 	
-	await video_stream_player.finished
+	await video_stream_player.finished #wait for the video to finish
 	
-	transition_hiding.emit()
+	transition_hiding.emit() #emit the signal showing the menus are hidden
 	
-	color_rect.color = Color.WHITE
+	color_rect.color = Color.WHITE #change the background to white
 	
-	video_stream_player.hide()
+	video_stream_player.hide() #hide the video
 	
-	tween.kill()
-	tween = create_tween()
-	await tween.tween_property(color_rect, "color", Color(0.0, 0.0, 0.0, 0.0), .5).finished
+	tween.kill() #kill the tween from before
+	tween = create_tween() #and create a new one
+	await tween.tween_property(color_rect, "color", Color(0.0, 0.0, 0.0, 0.0), .5).finished #to fade the color rect out into the new screen
 	
-	tween.kill()
-	video_stream_player.stream_position = 0
+	tween.kill() #after the tween finishes, kill it
+	video_stream_player.stream_position = 0 #and reset the stream position
 	#clear_tween.tween_property(video_stream_player, "color", 00000000, .5)
 	

@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://bte30ag4ndr2"]
 
+[ext_resource type="Script" uid="uid://bqu8t2fgjpjd8" path="res://Scenes and Code/Code/liscencing_and_credits_screen.gd" id="1_7tpev"]
+
 [node name="Liscencing and credits Screen" type="Control" unique_id=295012734]
 layout_mode = 3
 anchors_preset = 15
@@ -7,3 +9,126 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_7tpev")
+
+[node name="Title" type="Label" parent="." unique_id=527717263]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.058000002
+offset_bottom = -51.240005
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 54
+text = "Liscences and References!!!"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Thank yous" type="Label" parent="." unique_id=1661848167]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.058000002
+anchor_right = 1.0
+anchor_bottom = 0.116000004
+offset_top = -0.2400055
+offset_bottom = -0.480011
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 16
+text = "Huge thank you to the entire Mashup Week Team.  This entire project has been so inspiring to me creatively, and has oddly helped me progress academically, as well as just being an increadible source of great music, and I am so happy to have found it."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Artist Credits" type="Button" parent="." unique_id=1122834396]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.10555556
+anchor_top = 0.47929686
+anchor_right = 0.89444447
+anchor_bottom = 0.52070314
+offset_left = 140.0
+offset_top = 11.0
+offset_right = -140.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Credits to the artists and animators!"
+metadata/_edit_use_anchors_ = true
+
+[node name="Boring Legal Stuff" type="Button" parent="." unique_id=274147189]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.104166664
+anchor_top = 0.5439453
+anchor_right = 0.8958333
+anchor_bottom = 0.62050784
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Liscence information and other boring things"
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Artist Credits Screen" type="Control" parent="." unique_id=104836560]
+layout_mode = 1
+anchor_top = 0.1171875
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Artist Credits Screen" unique_id=33771301]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Artist Credits Screen/ScrollContainer" unique_id=1276893136]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Full Art Credits" type="Label" parent="Artist Credits Screen/ScrollContainer/VBoxContainer" unique_id=1082770166]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 27
+text = "Full Character Art:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stock Icon Credits" type="Label" parent="Artist Credits Screen/ScrollContainer/VBoxContainer" unique_id=514490265]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 27
+text = "Stock Icons:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Other Art Credits" type="Label" parent="Artist Credits Screen/ScrollContainer/VBoxContainer" unique_id=1186034606]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 27
+text = "Other Art:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Liscence info Screen" type="Control" parent="." unique_id=1415967961]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

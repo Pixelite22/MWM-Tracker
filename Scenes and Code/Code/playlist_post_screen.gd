@@ -22,20 +22,23 @@ func _process(delta: float) -> void:
 
 func _on_button_pressed() -> void:
 	#print("Button Pressed") 
-	var playlist_id_start = playlist_entry.text.find("list=") + 5 #
-	#print(playlist_entry.text.substr(playlist_id_start))
-	if playlist_entry.text.contains("&"):
-		Global.playlist_id = playlist_entry.text.substr(playlist_id_start, playlist_entry.text.find("&") - 1)
+	if playlist_entry.text != "":
+		var playlist_id_start = playlist_entry.text.find("list=") + 5 #
+		#print(playlist_entry.text.substr(playlist_id_start))
+		if playlist_entry.text.contains("&"):
+			Global.playlist_id = playlist_entry.text.substr(playlist_id_start, playlist_entry.text.find("&") - 1)
+		else:
+			Global.playlist_id = playlist_entry.text.substr(playlist_id_start)
+		
+		Global.save_playlists(playlist_entry.text)
+		
+		#print(Global.load_playlists())
+		
+		#await icon_transed
+		
+		playlist_button_pressed.emit()
 	else:
-		Global.playlist_id = playlist_entry.text.substr(playlist_id_start)
-	
-	Global.save_playlists(playlist_entry.text)
-	
-	#print(Global.load_playlists())
-	
-	await icon_transed
-	
-	playlist_button_pressed.emit()
+		pass
 
 
 func _on_saved_playlists_button_pressed() -> void:
@@ -45,11 +48,11 @@ func _on_saved_playlists_button_pressed() -> void:
 signal icon_transed
 var tween : Tween = create_tween()
 func icon_beat():
-	if tween: 
-		tween.kill()
-	tween = create_tween()
-	tween.set_loops()
-	tween.tween_property(icon_sprite, "scale", Vector2(0.4, 0.4) * Vector2(0.75, 0.75), 1.5)
-	tween.tween_property(icon_sprite, "scale", Vector2(0.4, 0.4), 1.5)
+	if tween: #If tween is already in use
+		tween.kill() #kill it
+	tween = create_tween() #and create a new one
+	tween.set_loops() #then set the following properties to loop with each other
+	tween.tween_property(icon_sprite, "scale", Vector2(0.4, 0.4) * Vector2(0.75, 0.75), 1.5) #Have the heart shrink to 1/4th the size
+	tween.tween_property(icon_sprite, "scale", Vector2(0.4, 0.4), 1.5) #then grow back to normal
 	#tween.stop()
-	get_tree().create_timer(0.1).timeout
+	get_tree().create_timer(0.1).timeout #then await a very small timeout before restarting the loop
