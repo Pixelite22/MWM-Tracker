@@ -125,18 +125,48 @@ func song_catcher():
 			str_end = description.find("\n", str_start)
 			musician_credit(description.substr(str_start + 10, str_end - (str_start + 10)), descrips["snippet"]["title"])
 
-func musician_credit(musician_name, song_name):
-	if musician_name in Global.composer_dict.keys():
-		Global.composer_dict[musician_name].append(song_name)
-		Global.composer_times[musician_name] += 1
+func musician_credit(composer : String, song : String):
+	var seperators = [", ", " ft. ", " & "]
+	var splits = 0
+	
+	var comps_available = {
+		#translated key : OG Key
+	}
+	for key in Global.composer_dict.keys():
+		comps_available.get_or_add(key.to_lower().replace(" ", ""), key)
+	
+	print("Musician: " + composer + " made it to the credit function")
+	
+	for sep in seperators:
+		if composer.contains(sep):
+			splits += composer.count(sep)
+			print("Musician contains " + sep + " " + str(splits) + " times!")
+			var comp_list = musician_split(composer, splits, sep)
+			for comp in comp_list:
+				musician_credit(comp, song)
+			return
+	
+	print("Musician: " + composer + " should be valid")
+	
+	if composer.to_lower().replace(" ", "") in comps_available.keys():
+		Global.composer_dict[comps_available[composer.to_lower().replace(" ", "")]].append(song)
+		Global.composer_times[comps_available[composer.to_lower().replace(" ", "")]] += 1
 	else:
-		Global.composer_dict.get_or_add(musician_name, [song_name])
-		Global.composer_times[musician_name] = 1
+		Global.composer_dict.get_or_add(composer, [song])
+		Global.composer_times[composer] = 1
+
+func musician_split(composer : String, splits : int, sep_char : String):
+	var comp_list = []
+	for i in range(splits + 1):
+		comp_list.append(composer.substr(0, composer.find(sep_char)))
+		composer = composer.substr(composer.find(sep_char) + 2).lstrip("t. ").lstrip(" ")
+	
+	return comp_list
 
 #One error is this won't catch collabs with unidentified characters (holy fuck scott the woz) having tony being a big example
 func misc_catcher(song_found, str_start, str_end, description, song_name):
 	if not song_found or description.contains("Tony Stark"): #Bad fix and should rework this but for now Tony is the only exception where he appears in a collab with scott
-		print(song_name + " Not found ")
+		#print(song_name + " Not found ")
 		var character_found = []
 		Global.char_dict["Misc."][0] += 1
 		if description.substr(str_start, str_end - str_start).contains(",") or description.substr(str_start, str_end - str_start).contains("All"):
@@ -154,7 +184,7 @@ func misc_catcher(song_found, str_start, str_end, description, song_name):
 					curr_string = curr_string.substr(char_split + 2)
 			else:
 				character_found.append(description.substr(str_start, str_end - str_start))
-			print("Misc Chars found", character_found)
+			#print("Misc Chars found", character_found)
 		else:
 			Global.char_dict["Misc."][1] += 1
 		icon_container.song_sorter("Misc.", song_name, true, character_found)
@@ -165,7 +195,7 @@ func character_increment(chars_repped, song_name):
 	var i = 0
 	for character in Global.char_dict: #This searches the character dictionary
 		if chars_repped.to_lower().contains(character.to_lower()): #and if a character passed in the string matches one of the characters in the dictionary
-			print(character + " found!")
+			#print(character + " found!")
 			song_placed = true
 			Global.char_dict[character][0] += 1 #increment that characters total songs
 			if not chars_repped.contains(",") and not chars_repped.contains(" - "): #and if this string doesn't contain the , character, signalling there is no other rep

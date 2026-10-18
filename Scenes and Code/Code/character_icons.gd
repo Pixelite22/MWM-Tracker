@@ -97,8 +97,10 @@ func _process(delta: float) -> void:
 
 
 func _on_mouse_entered() -> void:
-	item_list.position = get_local_mouse_position()
-	item_list.show()
+	if item_list:
+		item_list.position = get_local_mouse_position() + Vector2(5, 0)
+		item_list.fixed_column_width = DisplayServer.window_get_size().x - get_global_mouse_position().x - 5 - 15
+		item_list.show()
 
 func _on_item_list_mouse_exited() -> void:
 	item_list.hide()

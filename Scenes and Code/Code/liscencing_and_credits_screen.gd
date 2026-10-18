@@ -223,7 +223,6 @@ var other_art_cred_dict = {
 
 @onready var artist_credits_screen: Control = $"Artist Credits Screen"
 @onready var art_box_container: VBoxContainer = $"Artist Credits Screen/ScrollContainer/VBoxContainer"
-@onready var liscence_info_screen: Control = $"Liscence info Screen"
 @onready var full_art_credits: Label = $"Artist Credits Screen/ScrollContainer/VBoxContainer/Full Art Credits"
 @onready var stock_icon_credits: Label = $"Artist Credits Screen/ScrollContainer/VBoxContainer/Stock Icon Credits"
 @onready var other_art_credits: Label = $"Artist Credits Screen/ScrollContainer/VBoxContainer/Other Art Credits"
@@ -234,7 +233,8 @@ func _ready() -> void:
 	take_a_bow(stock_icon_cred_dict)
 	take_a_bow(other_art_cred_dict)
 	
-	
+
+func print_credits():
 	print("Full Art Credits")
 	var cred_out : String
 	for cred in full_art_cred_dict.keys():

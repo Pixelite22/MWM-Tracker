@@ -12,7 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_47abm")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=645928673]
+[node name="Stats Screen Proper" type="ScrollContainer" parent="." unique_id=645928673]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,16 +21,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 0
 follow_focus = true
-scroll_vertical = 100
-metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=1617241175]
+[node name="VBoxContainer" type="VBoxContainer" parent="Stats Screen Proper" unique_id=1617241175]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 25
 alignment = 1
 
-[node name="Favorite Character Label" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=683854089]
+[node name="Favorite Character Label" type="Label" parent="Stats Screen Proper/VBoxContainer" unique_id=683854089]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -39,11 +37,11 @@ theme_override_font_sizes/font_size = 77
 text = "Favorite Character!"
 horizontal_alignment = 1
 
-[node name="Favorite Character" parent="ScrollContainer/VBoxContainer" unique_id=1757397584 instance=ExtResource("1_t37ye")]
+[node name="Favorite Character" parent="Stats Screen Proper/VBoxContainer" unique_id=1757397584 instance=ExtResource("1_t37ye")]
 layout_mode = 2
 character = "Ace D. Copular"
 
-[node name="Runner Up Label" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=260160381]
+[node name="Runner Up Label" type="Label" parent="Stats Screen Proper/VBoxContainer" unique_id=260160381]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -52,11 +50,11 @@ theme_override_font_sizes/font_size = 77
 text = "Runner Up!"
 horizontal_alignment = 1
 
-[node name="Runner Up Character" parent="ScrollContainer/VBoxContainer" unique_id=2094181990 instance=ExtResource("1_t37ye")]
+[node name="Runner Up Character" parent="Stats Screen Proper/VBoxContainer" unique_id=2094181990 instance=ExtResource("1_t37ye")]
 layout_mode = 2
 character = "Ace D. Copular"
 
-[node name="Solo Label" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=2083326126]
+[node name="Solo Label" type="Label" parent="Stats Screen Proper/VBoxContainer" unique_id=2083326126]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -65,11 +63,11 @@ theme_override_font_sizes/font_size = 77
 text = "Favorite Solo Act!"
 horizontal_alignment = 1
 
-[node name="Solo Character" parent="ScrollContainer/VBoxContainer" unique_id=932497093 instance=ExtResource("1_t37ye")]
+[node name="Solo Character" parent="Stats Screen Proper/VBoxContainer" unique_id=932497093 instance=ExtResource("1_t37ye")]
 layout_mode = 2
 character = "Ace D. Copular"
 
-[node name="Colab Label" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1039801759]
+[node name="Colab Label" type="Label" parent="Stats Screen Proper/VBoxContainer" unique_id=1039801759]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -78,11 +76,11 @@ theme_override_font_sizes/font_size = 77
 text = "Favorite Collaber!"
 horizontal_alignment = 1
 
-[node name="Colab Character" parent="ScrollContainer/VBoxContainer" unique_id=1411902221 instance=ExtResource("1_t37ye")]
+[node name="Colab Character" parent="Stats Screen Proper/VBoxContainer" unique_id=1411902221 instance=ExtResource("1_t37ye")]
 layout_mode = 2
 character = "Ace D. Copular"
 
-[node name="Least Favorite Label" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=356772807]
+[node name="Least Favorite Label" type="Label" parent="Stats Screen Proper/VBoxContainer" unique_id=356772807]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -91,17 +89,17 @@ theme_override_font_sizes/font_size = 77
 text = "Least Favorite..."
 horizontal_alignment = 1
 
-[node name="Least Favorite Character" parent="ScrollContainer/VBoxContainer" unique_id=1109793884 instance=ExtResource("1_t37ye")]
+[node name="Least Favorite Character" parent="Stats Screen Proper/VBoxContainer" unique_id=1109793884 instance=ExtResource("1_t37ye")]
 layout_mode = 2
 character = "Ace D. Copular"
 
-[node name="Spacing" type="ColorRect" parent="ScrollContainer/VBoxContainer" unique_id=579218571]
+[node name="Spacing" type="ColorRect" parent="Stats Screen Proper/VBoxContainer" unique_id=579218571]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 mouse_filter = 2
 color = Color(0.19607843, 0.19607843, 0.19607843, 0)
 
-[node name="Favorite Composers" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=589039922]
+[node name="Favorite Composers" type="Label" parent="Stats Screen Proper/VBoxContainer" unique_id=589039922]
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -112,13 +110,19 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Spacing2" type="ColorRect" parent="ScrollContainer/VBoxContainer" unique_id=1615440318]
+[node name="Favorite Composer Full Info" type="Button" parent="Stats Screen Proper/VBoxContainer" unique_id=501273022]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Press here to see full Musical Artist credits, and the songs they made in the playlist!"
+autowrap_mode = 2
+
+[node name="Spacing2" type="ColorRect" parent="Stats Screen Proper/VBoxContainer" unique_id=1615440318]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 mouse_filter = 2
 color = Color(0.19607843, 0.19607843, 0.19607843, 0)
 
-[node name="Song Breakdown Header" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=864327394]
+[node name="Song Breakdown Header" type="Label" parent="Stats Screen Proper/VBoxContainer" unique_id=864327394]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
@@ -128,7 +132,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Song Count" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1733161620]
+[node name="Song Count" type="Label" parent="Stats Screen Proper/VBoxContainer" unique_id=1733161620]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
@@ -138,7 +142,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="OG Song Count" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=1090490173]
+[node name="OG Song Count" type="Label" parent="Stats Screen Proper/VBoxContainer" unique_id=1090490173]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
@@ -148,7 +152,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Remix Count Header" type="Label" parent="ScrollContainer/VBoxContainer" unique_id=522939325]
+[node name="Remix Count Header" type="Label" parent="Stats Screen Proper/VBoxContainer" unique_id=522939325]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
@@ -157,3 +161,35 @@ text = "Remix Count:"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="Fav Composers Screen" type="ScrollContainer" parent="." unique_id=478970081]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Fav Composers Screen" unique_id=943818143]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Fav Composers Screen/VBoxContainer" unique_id=1223771481]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "Full Musician Credits!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Return to Stats Screen" type="Button" parent="Fav Composers Screen/VBoxContainer" unique_id=396379488]
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+text = "Back to Stats"
+
+[connection signal="pressed" from="Stats Screen Proper/VBoxContainer/Favorite Composer Full Info" to="." method="_on_favorite_composer_full_info_pressed"]
+[connection signal="pressed" from="Fav Composers Screen/VBoxContainer/Return to Stats Screen" to="." method="_on_return_to_stats_screen_pressed"]

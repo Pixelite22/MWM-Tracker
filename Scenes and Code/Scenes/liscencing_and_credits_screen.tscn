@@ -29,59 +29,39 @@ metadata/_edit_use_anchors_ = true
 [node name="Thank yous" type="Label" parent="." unique_id=1661848167]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.058000002
+anchor_top = 0.058000006
 anchor_right = 1.0
-anchor_bottom = 0.116000004
+anchor_bottom = 0.15740626
 offset_top = -0.2400055
 offset_bottom = -0.480011
 grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 16
-text = "Huge thank you to the entire Mashup Week Team.  This entire project has been so inspiring to me creatively, and has oddly helped me progress academically, as well as just being an increadible source of great music, and I am so happy to have found it."
+text = "Huge thank you to the entire Mashup Week Team.  This entire project has been so inspiring to me creatively, and has oddly helped me progress academically, as well as just being an increadible source of great music, and I am so happy to have found it.  Below is the credits just for the art, music credit can be found in the stats screen, as the app will credit them based on the music in the playlist."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Artist Credits" type="Button" parent="." unique_id=1122834396]
-visible = false
+[node name="Godot Liscencing Info" type="LinkButton" parent="." unique_id=1880670209]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.10555556
-anchor_top = 0.47929686
-anchor_right = 0.89444447
-anchor_bottom = 0.52070314
-offset_left = 140.0
-offset_top = 11.0
-offset_right = -140.0
-offset_bottom = -11.0
+anchor_left = 0.063194446
+anchor_top = 0.9507812
+anchor_right = 0.93680555
+anchor_bottom = 0.96875
 grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 32
-text = "Credits to the artists and animators!"
-metadata/_edit_use_anchors_ = true
-
-[node name="Boring Legal Stuff" type="Button" parent="." unique_id=274147189]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.104166664
-anchor_top = 0.5439453
-anchor_right = 0.8958333
-anchor_bottom = 0.62050784
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 32
-text = "Liscence information and other boring things"
-autowrap_mode = 2
+grow_vertical = 0
+text = "Godot Liscencing Information (Will open a webpage to the Godot Liscencing page)"
+uri = "https://godotengine.org/license/"
 metadata/_edit_use_anchors_ = true
 
 [node name="Artist Credits Screen" type="Control" parent="." unique_id=104836560]
 layout_mode = 1
-anchor_top = 0.1171875
+anchor_top = 0.1609375
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.9421875
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
@@ -98,6 +78,7 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/separation = 20
 alignment = 1
 
 [node name="Full Art Credits" type="Label" parent="Artist Credits Screen/ScrollContainer/VBoxContainer" unique_id=1082770166]
@@ -126,9 +107,3 @@ theme_override_font_sizes/font_size = 27
 text = "Other Art:"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Liscence info Screen" type="Control" parent="." unique_id=1415967961]
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0

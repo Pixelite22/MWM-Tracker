@@ -1,15 +1,19 @@
 extends Control
 
-@onready var favorite_character: Control = $"ScrollContainer/VBoxContainer/Favorite Character"
-@onready var runner_up_character: Control = $"ScrollContainer/VBoxContainer/Runner Up Character"
-@onready var solo_character: Control = $"ScrollContainer/VBoxContainer/Solo Character"
-@onready var colab_character: Control = $"ScrollContainer/VBoxContainer/Colab Character"
-@onready var v_box_container: VBoxContainer = $ScrollContainer/VBoxContainer
-@onready var least_favorite_character: Control = $"ScrollContainer/VBoxContainer/Least Favorite Character"
-@onready var favorite_composers: Label = $"ScrollContainer/VBoxContainer/Favorite Composers"
-@onready var og_song_count: Label = $"ScrollContainer/VBoxContainer/OG Song Count"
-@onready var remix_count_header: Label = $"ScrollContainer/VBoxContainer/Remix Count Header"
-@onready var song_count: Label = $"ScrollContainer/VBoxContainer/Song Count"
+@onready var stats_screen_proper: ScrollContainer = $"Stats Screen Proper"
+@onready var fav_composers_screen: ScrollContainer = $"Fav Composers Screen"
+@onready var favorite_character: Control = $"Stats Screen Proper/VBoxContainer/Favorite Character"
+@onready var runner_up_character: Control = $"Stats Screen Proper/VBoxContainer/Runner Up Character"
+@onready var solo_character: Control = $"Stats Screen Proper/VBoxContainer/Solo Character"
+@onready var colab_character: Control = $"Stats Screen Proper/VBoxContainer/Colab Character"
+@onready var v_box_container_stats: VBoxContainer = $"Stats Screen Proper/VBoxContainer"
+@onready var least_favorite_character: Control = $"Stats Screen Proper/VBoxContainer/Least Favorite Character"
+@onready var favorite_composers: Label = $"Stats Screen Proper/VBoxContainer/Favorite Composers"
+@onready var og_song_count: Label = $"Stats Screen Proper/VBoxContainer/OG Song Count"
+@onready var remix_count_header: Label = $"Stats Screen Proper/VBoxContainer/Remix Count Header"
+@onready var song_count: Label = $"Stats Screen Proper/VBoxContainer/Song Count"
+@onready var favorite_composer_full_info: Button = $"Stats Screen Proper/VBoxContainer/Favorite Composer Full Info"
+@onready var v_box_container_comps: VBoxContainer = $"Fav Composers Screen/VBoxContainer"
 #@onready var remix_or_og: Label = $"ScrollContainer/VBoxContainer/Remix or OG"
 
 var least_excludes = ["Scott the Woz", "Susie Haltmann", "Discoholic", "Cici", "Dexter's Dad", "Tony Stark", "Garfield", "Misc."]
@@ -132,14 +136,15 @@ func char_setup(type : Array, base_node : Control):
 		for char in type: #For each character in that array
 			#print(char)
 			new_char = base_node.duplicate() #Duplicate the placeholder base_node
-			v_box_container.add_child(new_char) #add it to the v_box
-			v_box_container.move_child(new_char, base_node.get_index()) #and move it to the proper position
+			v_box_container_stats.add_child(new_char) #add it to the v_box
+			v_box_container_stats.move_child(new_char, base_node.get_index()) #and move it to the proper position
 			#print(new_char)
 			new_char.set_script(load("res://Scenes and Code/Code/character_icons.gd")) #then ensure it has the necissary script on it
 			#await new_char.ready
 			new_char.character = char[0] #Set the character by targeting it in the array
 			new_char.icon_setup(true) #Call the icon setup on the character
 			new_char.update_stats() #Update the stats so they show proper
+			new_char.item_list.queue_free()
 			#new_char.song_list() #update the song list ##NOT WORKING AS OF RIGHT NOW
 			#print(new_char.name + " is " + new_char.character)
 		base_node.hide() #Hide the base node 
@@ -149,7 +154,8 @@ func char_setup(type : Array, base_node : Control):
 		base_node.character = type[0][0] 
 		base_node.icon_setup(true)
 		base_node.update_stats()
-		base_node.song_list()
+		base_node.item_list.queue_free()
+		#base_node.song_list()
 		#print(base_node.name + " is " + base_node.character)
 
 var top_comps = []
@@ -160,24 +166,55 @@ func fav_comp():
 	
 	comp_array.sort_custom(comp_sorting) #and sort it from highest to lowest
 	
+	print(Global.composer_dict)
+	
 	var i = 1
 	for music in comp_array: #for each musician in the comp array
+		print("music: " + str(music))
 		if music[0] != "Anonymous (Per Request)": #if they are anonymous, remove them as this can be a variety of people
+			create_new_credit(music[0])
 			if top_comps.size() < 3: #Fill top_comp with only the top 3 composers
 				top_comps.append({music[0] : Global.composer_dict[music[0]]})
 				
 				var composer_load = load("res://Scenes and Code/Scenes/favorite_composers.tscn") #load a new composer scene
 				var composer = composer_load.instantiate() #instantiate it
 				composer.text = music[0] #Change the text to be that of a composers name
-				v_box_container.add_child(composer) #add the child to the vbox
+				v_box_container_stats.add_child(composer) #add the child to the vbox
 				for song in Global.composer_dict[music[0]]: #not currently working but meant to list their songs
 					composer.songs.append(song)
 				composer.list_em() #List composer music
-				v_box_container.move_child(composer, favorite_composers.get_index() + i) #move composer node to the correct spot
+				v_box_container_stats.move_child(composer, favorite_composers.get_index() + i) #move composer node to the correct spot
 				i += 1 #increment i 
-			else: #When the array has more then three
-				break #break the loop
+	
+	create_new_credit("Anonymous (Per Request)")
 
+func create_new_credit(musician):
+	var musician_label = Label.new()
+	var song_label = Label.new()
+	var songs = ""
+	musician_label.autowrap_mode = 2
+	musician_label.add_theme_color_override("font_outline_color", Color.BLACK)
+	musician_label.add_theme_constant_override("outline_size", 10)
+	musician_label.add_theme_font_size_override("font_size", 36)
+	musician_label.text = musician + ": "
+	if musician in Global.composer_dict.keys():
+		for song in Global.composer_dict[musician]:
+			song = song.substr(0, song.find(" - Mashup Week: Megamix"))
+			song = song.substr(0, song.find(" - Remix Week"))
+			songs += " - " + song + "\n"
+	songs.rstrip("\n")
+	song_label.text = songs
+	song_label.autowrap_mode = 2
+	song_label.add_theme_color_override("font_outline_color", Color.BLACK)
+	song_label.add_theme_constant_override("outline_size", 10)
+	song_label.add_theme_font_size_override("font_size", 27)
+	
+	var button_loc = $"Fav Composers Screen/VBoxContainer/Return to Stats Screen".get_index()
+	v_box_container_comps.add_child(song_label)
+	v_box_container_comps.move_child(song_label, button_loc)
+	v_box_container_comps.add_child(musician_label)
+	v_box_container_comps.move_child(musician_label, button_loc)
+	
 
 func comp_sorting(a, b):
 	#if the value at index 1 of a is greater then that of b, return true, otherwise return false so they can flip
@@ -204,3 +241,14 @@ func misc_value_handling():
 	
 	#List the number of songs in the playlist
 	song_count.text = "You have x songs in this playlist!".replace("x", str(Global.remix_songs + Global.og_songs + Global.unknown_songs))
+
+
+func _on_favorite_composer_full_info_pressed() -> void:
+	stats_screen_proper.hide()
+	fav_composers_screen.show()
+	
+
+
+func _on_return_to_stats_screen_pressed() -> void:
+	fav_composers_screen.hide()
+	stats_screen_proper.show()
