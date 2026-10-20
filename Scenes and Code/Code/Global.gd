@@ -121,44 +121,33 @@ func prev_page():
 	#prev_page_key = however we pull that from the site
 
 
-#NEED TO CHANGE THIS TO HANDLE SAVING A DICTIONARY INSTEAD OF TEXT
 func save_playlists(playlist, name = ""):
-	#load the playlist into the general dict
-	load_playlists()
+	var save_file = FileAccess.open("user://playlist... list.JSON", FileAccess.WRITE)
 	
-	#Determine if it is a new or already saved playlist
-	var new_playlist : bool
-	if playlist in playlist_dict.keys(): #if it is already in the playlist dictionary keys
-		new_playlist = false #Set new playlist to false
-		if name != "": #If the name passed in isn't blank
-			playlist_dict[playlist] = name #Make the playlist key saved as the nickname 
-	else: #otherwise
-		new_playlist = true #set it to a new playlist
-		playlist_dict.get_or_add(playlist, name) #Add it to the playlist
+	#Load playlist
+	await load_playlists()
 	
-	var file = FileAccess.open(save_file, FileAccess.WRITE) #Open the save files
-	for list in playlist_dict: #For each line in the playlist dictionary
-		file.store_string(playlist + " Named: " + name + "|") #store the string of the playlist, the name of the playlist, and the | end marker
+	#Add the playlist if it hasn't been added before
+	if not playlist in playlist_dict.keys():
+		playlist_dict.get_or_add(playlist, name)
+		print("Saving Playlists")
+		print(playlist_dict)
+	#Change the name of the playlist if that is what is needed
+	elif name != "":
+		playlist_dict[playlist] = name
 	
-	file.close() #Close the file
+	#Save the dictionary to the file
+	save_file.store_var(playlist_dict)
+	save_file.close()
 
-#Load file data into playlist Dictionary
 func load_playlists():
-	var file = FileAccess.open(save_file, FileAccess.READ) #set file to an opened save_file
-	var content = file.get_as_text() #Get the file content as text
-	var line
-	while not file.eof_reached():
-		line = file.get_line()
-		#print("Line: " + line)
-		if not line.begins_with("#"):
-			var playlist_link_start = line.find("http") #find the playlist in the file
-			var playlist_name_start = line.find(" Named: ") + 8
-			var playlist_line_ends = line.find("|") #find the end of the playlist in the file
-			#print("Start is at: " + str(playlist_link_start) + 
-			#" Name split at: " + str(playlist_name_start) + 
-			#" End at: " + str(playlist_line_ends))
-			
-			playlist_dict.get_or_add(line.strip_edges().substr(playlist_link_start, playlist_name_start - 8), line.strip_edges().substr(playlist_name_start, playlist_line_ends - 1).trim_suffix("|"))
+	var save_file = FileAccess.open("user://playlist... list.JSON", FileAccess.READ)
 	
-	file.close() #close the file to prevent leak
-	return content #return the text if the value is needed
+	if save_file:
+		if save_file.get_as_text() != "":
+			print("Loading Playlists")
+			playlist_dict = save_file.get_var()
+			print(playlist_dict)
+			save_file.close()
+	
+	return

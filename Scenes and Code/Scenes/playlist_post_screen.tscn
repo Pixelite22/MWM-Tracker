@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://y1impgdrqw3y" path="res://Scenes and Code/Code/playlist_post_screen.gd" id="1_d7vgh"]
 [ext_resource type="Texture2D" uid="uid://clrsbgc64s7bd" path="res://Assets/Arts/Megamix Stock Icons/Megamix Discord Icon No BG.png" id="2_6oslv"]
-[ext_resource type="Script" uid="uid://318xgktjb76i" path="res://Scenes and Code/Scenes/icon.gd" id="3_yfe8t"]
+[ext_resource type="Script" uid="uid://318xgktjb76i" path="res://Scenes and Code/Code/icon.gd" id="3_yfe8t"]
 
 [node name="Playlist post screen" type="Control" unique_id=300126671]
 layout_mode = 3

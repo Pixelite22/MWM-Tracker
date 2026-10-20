@@ -22,6 +22,7 @@ const STATE = ["Display", "Entry", "Saved", "Menu", "Loading", "Stats"]
 func _ready() -> void:
 	playlist_post_screen.playlist_button_pressed.connect(start_the_show)
 	saved_playlist_screen.kick_it.connect(start_the_show)
+	stats_screen.song_check.connect(mic_check)
 	
 	playlist_post_screen.saved_playlist_show.connect(load_em_and_show_em)
 	Global.scan_done.connect(shows_over)
@@ -55,7 +56,8 @@ func load_em_and_show_em():
 	if saved_playlist_screen.find_child("VBoxContainer", true):
 		for button in saved_playlist_screen.find_child("VBoxContainer", true).get_children():
 			button.queue_free()
-	saved_playlist_screen.sort_em_out(Global.load_playlists()) #start the sorting function on the loaded playlist 
+	await Global.load_playlists()
+	saved_playlist_screen.release_da_buttons() #sort_em_out(Global.playlist_dict) #start the sorting function on the loaded playlist 
 
 var last_link
 func request_page():
@@ -300,3 +302,25 @@ func _notification(what: int) -> void:
 		var temp = screen_tracking[1]
 		screen_tracking[1] = screen_tracking[0]
 		screen_tracking[0] = screen_tracking[1]
+
+#TEMPORARY FOR ARTIST CREDITS
+@onready var liscencing_and_credits_screen: Control = $"Liscencing and credits Screen"
+@onready var button: Button = $Button
+func _on_button_pressed() -> void:
+	liscencing_and_credits_screen.show()
+	playlist_post_screen.hide()
+	button.hide()
+	screen_tracking = [liscencing_and_credits_screen, playlist_post_screen]
+
+signal check_1_2(character_array)
+
+func mic_check(song):
+	var chars = []
+	for child in icon_container.get_children():
+		if child is char_icon:
+			if song in child.songs_included:
+				chars.append(child.char_img_dict[child.character])
+	
+	stats_screen.char_music_rep = chars
+	
+	return

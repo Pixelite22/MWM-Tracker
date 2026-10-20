@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://btrr3n6rbtjgj"]
 
-[ext_resource type="Script" uid="uid://b54j6tgem86vy" path="res://Scenes and Code/Scenes/favorite_composers.gd" id="1_51e0u"]
+[ext_resource type="Script" uid="uid://b54j6tgem86vy" path="res://Scenes and Code/Code/favorite_composers.gd" id="1_51e0u"]
 
 [node name="Favorite Composers" type="Label" unique_id=1498103894]
 anchors_preset = -1

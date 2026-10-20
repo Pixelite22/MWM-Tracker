@@ -19,9 +19,15 @@ func _process(delta: float) -> void:
 func create_icons():
 	for character in Global.char_dict: #For each character in the Global character dictionary
 		#print("Icon for character " + character + " is being added.")
-		var icon = icon_node.instantiate() #instantiate a new icon_node
+		var icon : char_icon = icon_node.instantiate() #instantiate a new icon_node
 		icon.character = character #Set it's character to the current character
 		add_child(icon) #add the icon to the tree
+		icon.char_list_shown.connect(ladies_ladies)
+
+func ladies_ladies(character):
+	for child in get_children():
+		if child is char_icon and child.character != character:
+			child.item_list.hide()
 
 func move_button():
 	move_child(stats_screen_button, -1) #move child to right above the stat screen button

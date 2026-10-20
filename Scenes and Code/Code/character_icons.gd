@@ -1,4 +1,7 @@
 extends Control
+class_name char_icon
+
+signal char_list_shown(char_repped : String)
 
 @export var character : String
 
@@ -97,10 +100,17 @@ func _process(delta: float) -> void:
 
 
 func _on_mouse_entered() -> void:
+	char_list_shown.emit(character)
 	if item_list:
 		item_list.position = get_local_mouse_position() + Vector2(5, 0)
-		item_list.fixed_column_width = DisplayServer.window_get_size().x - get_global_mouse_position().x - 5 - 15
+		item_list.fixed_column_width = DisplayServer.window_get_size_with_decorations().x - get_global_mouse_position().x - 5 - 15
 		item_list.show()
 
 func _on_item_list_mouse_exited() -> void:
+	item_list_handle()
+
+func _on_item_list_focus_exited() -> void:
+	item_list_handle()
+
+func item_list_handle():
 	item_list.hide()

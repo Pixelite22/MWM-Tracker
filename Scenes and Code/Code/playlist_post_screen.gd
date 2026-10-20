@@ -26,7 +26,7 @@ func _on_button_pressed() -> void:
 		var playlist_id_start = playlist_entry.text.find("list=") + 5 #
 		#print(playlist_entry.text.substr(playlist_id_start))
 		if playlist_entry.text.contains("&"):
-			Global.playlist_id = playlist_entry.text.substr(playlist_id_start, playlist_entry.text.find("&") - 1)
+			Global.playlist_id = playlist_entry.text.substr(playlist_id_start, playlist_entry.text.find("&"))
 		else:
 			Global.playlist_id = playlist_entry.text.substr(playlist_id_start)
 		

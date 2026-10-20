@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://8ptrj5fbtp4w" path="res://Scenes and Code/Scenes/saved_playlist_screen.tscn" id="6_snpgs"]
 [ext_resource type="PackedScene" uid="uid://d0k8vq48wc40f" path="res://Scenes and Code/Scenes/loading_screen.tscn" id="7_2jpta"]
 [ext_resource type="PackedScene" uid="uid://csil7tsqfwg6k" path="res://Scenes and Code/Scenes/stats_screen.tscn" id="8_7y8cd"]
+[ext_resource type="PackedScene" uid="uid://bte30ag4ndr2" path="res://Scenes and Code/Scenes/liscencing_and_credits_screen.tscn" id="9_hpkrp"]
 [ext_resource type="PackedScene" uid="uid://dbhtdeedcwths" path="res://Scenes and Code/Scenes/transition_animations.tscn" id="9_xwajn"]
 
 [node name="Main" type="Control" unique_id=1636052630]
@@ -96,7 +97,25 @@ metadata/_edit_use_anchors_ = true
 visible = false
 layout_mode = 1
 
+[node name="Liscencing and credits Screen" parent="." unique_id=295012734 instance=ExtResource("9_hpkrp")]
+visible = false
+layout_mode = 1
+
+[node name="Button" type="Button" parent="." unique_id=27024669]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.17222223
+anchor_top = 0.575
+anchor_right = 0.79583335
+anchor_bottom = 0.659375
+offset_right = 3.0517578e-05
+theme_override_font_sizes/font_size = 36
+text = "See Artist Credits!
+(Temp Button)"
+metadata/_edit_use_anchors_ = true
+
 [node name="Transition Animations" parent="." unique_id=1865240901 instance=ExtResource("9_xwajn")]
 layout_mode = 1
 
 [connection signal="pressed" from="Display Screen/ScrollContainer/Icon Container/Stats Screen Button" to="." method="backstage_pass"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

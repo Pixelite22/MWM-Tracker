@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://csil7tsqfwg6k"]
 
-[ext_resource type="Script" uid="uid://7pycvp26180n" path="res://Scenes and Code/Scenes/stats_screen.gd" id="1_47abm"]
+[ext_resource type="Script" uid="uid://7pycvp26180n" path="res://Scenes and Code/Code/stats_screen.gd" id="1_47abm"]
 [ext_resource type="PackedScene" uid="uid://1um8y3c80mb7" path="res://Scenes and Code/Scenes/Character Icons.tscn" id="1_t37ye"]
 
 [node name="Stats Screen" type="Control" unique_id=138303260]

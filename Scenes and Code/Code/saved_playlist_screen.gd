@@ -30,33 +30,8 @@ func _process(delta: float) -> void:
 #Simply to load the playlist and send it to the function that sorts out the relevant information
 func load_em_up():
 	#print("Load em up reached")
-	var file_content = Global.load_playlists()
-	
-	sort_em_out(file_content)
-	
-	#release_da_buttons()
-
-#Sorts out the collected info from the playlist
-func sort_em_out(playlists : String):
-	#print("SEM reached")
-	#print(playlists.strip_escapes())
-	var split_point = playlists.find("http", 4) #Find the start of the link, on the off-chance it isn't at the very beginning
-	var start_of_name_requests = playlists.find(" Named: ") + 8 #find the start of the Playlist name part
-	var end_char = playlists.find("|")
-	var playlink = playlists.substr(0, start_of_name_requests - 8)
-	if not Global.playlist_dict.has(playlink):
-		Global.playlist_dict.set(playlink, playlists.substr(start_of_name_requests, end_char - 1).trim_suffix("|")) 
-		#playlist_list.append(playlists.strip_escapes().substr(0, split_point))
-		#print(Global.playlist_dict)
-	if playlists.substr(split_point) != "":
-		#print(playlists.substr(split_point))
-		sort_em_out(playlists.substr(split_point))
-	else:
-		#print("ending SEM")
-		release_da_buttons()
-
-
-
+	await Global.load_playlists()
+	release_da_buttons()
 
 func release_da_buttons():
 	#print("RDB reached")
@@ -120,9 +95,9 @@ func _on_save_button_pressed() -> void:
 #	button_dict[curr_focused_button[0]] = name_change_text.text
 #	Global.playlist_dict[playlist] = name_change_text.text
 	#print("Save Button Pressed")
-	if name_change_text.text != "" or name_change_text.text != name_change_text.placeholder_text:
+	#if name_change_text.text != "" or name_change_text.text != name_change_text.placeholder_text:
 		#print("first if passed")
-		if button_edited != null:
+	if button_edited != null:
 			#print("BUtton edited is" + button_edited.text)
 #			if (button_edited.text in Global.playlist_dict.values()) or button_edited.text in Global.playlist_dict.keys():
 #				print(button_edited.text + " found in the global dictionary!")
@@ -132,14 +107,14 @@ func _on_save_button_pressed() -> void:
 #						Global.save_playlists(playlist, name_change_text.text)
 						
 				
-			for playlist in Global.playlist_dict:
-				if button_edited.text == playlist or button_edited.text == Global.playlist_dict[playlist]:
-					#print(button_edited.text + "matched")
-					#Global.playlist_dict[playlist] = name_change_text.text
-					Global.save_playlists(playlist, name_change_text.text)
-				else:
-					print("Playlist or playlist named: " + button_edited.text + " not found!")
+		for playlist in Global.playlist_dict:
+			if button_edited.text == playlist or button_edited.text == Global.playlist_dict[playlist]:
+				#print(button_edited.text + "matched")
+				#Global.playlist_dict[playlist] = name_change_text.text
+				Global.save_playlists(playlist, name_change_text.text)
+			else:
+				print("Playlist or playlist named: " + button_edited.text + " not found!")
 			
-			button_edited.text = name_change_text.text
-			name_change_text.text = ""
-			name_change_popup.hide()
+		button_edited.text = name_change_text.text
+		name_change_text.text = ""
+		name_change_popup.hide()
